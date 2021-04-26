@@ -7,6 +7,7 @@ public abstract class User {
 	private String last_name;
 	private String email;
 	private String phone_number;
+	private String status;
 	//LIST OF FRIENDS ......
 	
 	protected User(String user, String pass, String first, String last, String mail, String phone) {
