@@ -12,4 +12,16 @@ public class Work {
         this.artistOwner = artistOwner;
         this.workContent = workContent;
     }
+
+    public int getID() {
+        return workID;
+    }
+
+    public User getOwner() {
+        return artistOwner;
+    }
+
+    public String getContent() {
+        return workContent;
+    }
 }

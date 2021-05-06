@@ -13,4 +13,16 @@ public class Gallery {
         this.artistOwner = artistOwner;
         this.listWorks = new ArrayList<Work>();
     }
+
+    public int getID() {
+        return galleryId;
+    }
+
+    public Artist getArtistOwner() {
+        return artistOwner;
+    }
+
+    public List<Work> getListWorks() {
+        return listWorks;
+    }
 }

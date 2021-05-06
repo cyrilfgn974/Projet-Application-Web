@@ -11,4 +11,16 @@ public class Wall {
 		this.user = us;
 		this.postList = post;
 	}
+
+	public int getID() {
+		return wallID;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public List<Post> getPosts() {
+		return postList;
+	}
 }

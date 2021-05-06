@@ -14,4 +14,20 @@ public class Donation {
         this.to = to;
         this.frequence = freq;
     }
+
+    public int getID() {
+        return donationID;
+    }
+
+    public Muse getFrom() {
+        return from;
+    }
+
+    public Artist getTo() {
+        return to;
+    }
+
+    public int getFrequence() {
+        return frequence;
+    }
 }
