@@ -4,30 +4,38 @@ import java.util.*;
 
 public class Donation {
     private int donationID;
-    private Muse from;
+    private User from;
     private Artist to;
-    private int frequence;
+    private Frequence frequence;
+    private Money value;
 
-    public Donation(int donation, Muse from, Artist to, int freq) {
+    public enum Frequence {ONCE, MONTHLY, ANNUALLY}
+
+    public Donation(int donation, User from, Artist to, Money value, Frequence freq) {
         this.donationID = donation;
         this.from = from;
         this.to = to;
         this.frequence = freq;
+        this.value = value;
     }
 
     public int getID() {
         return donationID;
     }
 
-    public Muse getFrom() {
+    public User getFrom() {
         return from;
     }
 
-    public Artist getTo() {
+    public User getTo() {
         return to;
     }
 
-    public int getFrequence() {
+    public Frequence getFrequence() {
         return frequence;
+    }
+
+    public Money getValue() {
+        return value;
     }
 }
