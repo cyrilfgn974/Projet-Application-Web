@@ -18,6 +18,32 @@ public class Comment {
 		this.likeList = new ArrayList<User>();
 	}
 
+	public boolean userLiked(User user) {
+		for (User u: likeList) {
+			if (user.equals(u)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public Collection<User> getCommentUsers(User user) {
+		Collection<User> comments = new HashSet<User>();
+
+		if (user.equals(this.user)) {
+			comments.add(user);
+		}
+
+		for (Comment c: replies) {
+			if (user.equals(c.getUser())) {
+				comments.add(c.getUser());
+			}
+		}
+
+		return comments;
+	}
+
 	public int getID() {
 		return commentID;
 	}
@@ -36,6 +62,10 @@ public class Comment {
 
 	public Collection<User> getLikeList() {
 		return likeList;
+	}
+
+	public int getLikeCount() {
+		return likeList.size();
 	}
 
 	public List<Comment> getReplies() {

@@ -19,6 +19,10 @@ public abstract class User {
 		this.phone_number = phone;
 	}
 
+	public boolean equals(User user) {
+		return this.username.equals(user.username);
+	}
+
 	public String getUsername()
 	{
 		return this.username;
