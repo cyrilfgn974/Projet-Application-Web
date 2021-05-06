@@ -10,5 +10,5 @@ public interface Publication {
     public String getContent();
     public String getPublicationDate();
     public List<Comment> getComments();
-	public Collection<User> getLikeUsers();
+    public Collection<User> getLikeUsers();
 }
