@@ -2,21 +2,16 @@ package entities;
 
 import java.util.*;
 
-public class Work implements Publication {
-    private int workID;
-    private Artist artistOwner;
-    private String workContent;
-    private List<Comment> listComment;
-    private List<User> likeList;
-    private String date;
-    
-    public Work(int workID, Artist artistOwner, String workContent, String date) {
-        this.workID = workID;
-        this.artistOwner = artistOwner;
-        this.workContent = workContent;
-        this.listComment = new ArrayList<Comment>();
-        this.likeList = new ArrayList<User>();
-        this.date = date;
+public class Work extends PublicationAbstract {
+    private Object content;
+    public Work(int workID, Artist artistOwner, Object workContent) {
+        super(workID, artistOwner);
+        this.content = workContent;
+    }
+
+    public Work(int workID, Artist artistOwner, Object workContent, Date date) {
+        super(workID, artistOwner, date);
+        this.content = workContent;
     }
 
     public boolean userLiked(User user) {
@@ -37,27 +32,7 @@ public class Work implements Publication {
         return comments;
     }
 
-    public int getID() {
-        return workID;
-    }
-
-    public User getOwner() {
-        return artistOwner;
-    }
-
-    public String getContent() {
-        return workContent;
-    }
-
-    public String getPublicationDate() {
-        return date;
-    }
-
-    public List<Comment> getComments() {
-        return listComment;
-    }
-
-    public Collection<User> getLikeUsers() {
-        return likeList;
+    public Object getContent() {
+        return content;
     }
 }

@@ -2,63 +2,19 @@ package entities;
 
 import java.util.*;
 
-public class Post implements Publication {
-	private int postID;
-	private User user;
-	private String content;
-	private String datePublication;
-	private List<Comment> listComment;
-	private List<User> likeList;
-
-	
-	public Post(int id, User us, String cont, String date) {
-		this.postID = id;
-		this.user = us;
-		this.content = cont;
-		this.datePublication = date;
-		this.listComment = new ArrayList<Comment>();
-		this.likeList = new ArrayList<User>();
+public class Post extends PublicationAbstract {
+	String text;
+	public Post(int id, User user, String text) {
+		super(id, user);
+		this.text = text;
 	}
 
-	public boolean userLiked(User user) {
-		for (User u: likeList) {
-			if (user.equals(u)) {
-				return true;
-			}
-		}
-		return false;
+	public Post(int id, User user, String cont, String text, Date date) {
+		super(id, user, date);
+		this.text = text;
 	}
 
-	public Collection<Comment> getCommentsFromUser(User user) {
-		Collection<Comment> comments = new HashSet<Comment>();
-		for (Comment c: listComment) {
-			comments.addAll(c.getCommentsFromUser(user));
-		}
-
-		return comments;
-	}
-
-	public int getID() {
-		return postID;
-	}
-
-	public User getOwner() {
-		return user;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public String getPublicationDate() {
-		return datePublication;
-	}
-
-	public List<Comment> getComments() {
-		return listComment;
-	}
-
-	public Collection<User> getLikeUsers() {
-		return likeList;
+	public String getTextContent() {
+		return text;
 	}
 }

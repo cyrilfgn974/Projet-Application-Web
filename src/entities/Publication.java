@@ -7,8 +7,7 @@ public interface Publication {
     public Collection<Comment> getCommentsFromUser(User user);
     public int getID();
     public User getOwner();
-    public String getContent();
-    public String getPublicationDate();
+    public Date getPublicationDate();
     public List<Comment> getComments();
     public Collection<User> getLikeUsers();
 }
