@@ -8,6 +8,7 @@ public class Comment {
 	private String content;
 	private String datePublication;
 	private List<User> likeList;
+	private List<Comment> replies;
 	
 	public Comment(int id, User us, String cont, String date) {
 		this.commentID = id;
@@ -35,5 +36,9 @@ public class Comment {
 
 	public Collection<User> getLikeList() {
 		return likeList;
+	}
+
+	public List<Comment> getReplies() {
+		return replies;
 	}
 }
