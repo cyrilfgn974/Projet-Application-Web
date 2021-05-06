@@ -28,17 +28,15 @@ public class Comment {
 		return false;
 	}
 
-	public Collection<User> getCommentUsers(User user) {
-		Collection<User> comments = new HashSet<User>();
+	public Collection<Comment> getCommentsFromUser(User user) {
+		Collection<Comment> comments = new HashSet<Comment>();
 
 		if (user.equals(this.user)) {
-			comments.add(user);
+			comments.add(this);
 		}
 
 		for (Comment c: replies) {
-			if (user.equals(c.getUser())) {
-				comments.add(c.getUser());
-			}
+			comments.addAll(c.getCommentsFromUser(user));
 		}
 
 		return comments;

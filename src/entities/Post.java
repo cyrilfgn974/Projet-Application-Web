@@ -2,7 +2,7 @@ package entities;
 
 import java.util.*;
 
-public class Post {
+public class Post implements Publication {
 	private int postID;
 	private User user;
 	private String content;
@@ -20,11 +20,29 @@ public class Post {
 		this.likeList = new ArrayList<User>();
 	}
 
+	public boolean userLiked(User user) {
+		for (User u: likeList) {
+			if (user.equals(u)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Collection<Comment> getCommentsFromUser(User user) {
+		Collection<Comment> comments = new HashSet<Comment>();
+		for (Comment c: listComment) {
+			comments.addAll(c.getCommentsFromUser(user));
+		}
+
+		return comments;
+	}
+
 	public int getID() {
 		return postID;
 	}
 
-	public User getUser() {
+	public User getOwner() {
 		return user;
 	}
 
