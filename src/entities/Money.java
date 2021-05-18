@@ -1,8 +1,12 @@
 package entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 public class Money {
-    private long value;
+    @Id
     private String currency;
+    private long value;
 
     public Money(long unnormValue, String currency) {
         this.value = unnormValue;
