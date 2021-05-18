@@ -2,23 +2,27 @@ package entities;
 
 import java.util.*;
 
+@Entity
 public abstract class PublicationAbstract implements Publication {
+
+	@Id
+    	@GeneratedValue(strategy=GenerationType.AUTO)
 	protected int id;
 	protected User user;
 	protected Date date;
-	protected List<Comment> listComment;
-	protected List<User> likeList;
 
-	protected PublicationAbstract(int id, User user) {
-		this.id = id;
+	@OneToMany(fetch = FetchType.EAGER)
+	protected Collection<Comment> listComment;
+	@OneToMany(fetch = FetchType.EAGER)
+	protected Collection<User> likeList;
+
+	protected PublicationAbstract(User user) {
 		this.user = user;
 		this.date = new Date();
-		this.listComment = new ArrayList<Comment>();
-		this.likeList = new ArrayList<User>();
 	}
 
-	protected PublicationAbstract(int id, User user, Date date) {
-        this(id, user);
+	protected PublicationAbstract(User user, Date date) {
+        this(user);
 		this.date = date;
 	}
 
@@ -52,7 +56,7 @@ public abstract class PublicationAbstract implements Publication {
 		return date;
 	}
 
-	public List<Comment> getComments() {
+	public Collection<Comment> getComments() {
 		return listComment;
 	}
 
@@ -60,3 +64,5 @@ public abstract class PublicationAbstract implements Publication {
 		return likeList;
 	}
 }
+
+// Définition de @Id et de @OneToMany pour une classe abstraite ?
