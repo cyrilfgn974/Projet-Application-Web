@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.*;
+import java.util.Collection;
 
 public interface Publication {
     public boolean userLiked(User user);
@@ -8,6 +8,6 @@ public interface Publication {
     public int getID();
     public User getOwner();
     public Date getPublicationDate();
-    public List<Comment> getComments();
+    public Collection<Comment> getComments();
     public Collection<User> getLikeUsers();
 }
