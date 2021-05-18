@@ -1,16 +1,19 @@
 package entities;
 
-import java.util.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class Post extends PublicationAbstract {
 	String text;
-	public Post(int id, User user, String text) {
-		super(id, user);
+
+	public Post(User user, String text) {
+		super(user);
 		this.text = text;
 	}
 
-	public Post(int id, User user, String cont, String text, Date date) {
-		super(id, user, date);
+	public Post(User user, String cont, String text, Date date) {
+		super(user, date);
 		this.text = text;
 	}
 
@@ -18,3 +21,5 @@ public class Post extends PublicationAbstract {
 		return text;
 	}
 }
+
+// Comment définir @Id pour PublicationAbstract ?
