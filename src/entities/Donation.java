@@ -18,7 +18,7 @@ public class Donation {
 
     public enum Frequence {ONCE, MONTHLY, ANNUALLY}
 
-    public Donation(int donation, User from, Artist to, Money value, Frequence freq) {
+    public Donation(User from, Artist to, Money value, Frequence freq) {
         this.from = from;
         this.to = to;
         this.frequence = freq;
