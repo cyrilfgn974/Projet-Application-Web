@@ -1,15 +1,27 @@
 package entities;
 
-import java.util.List;
+import java.util.Collection;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Wall {
+
+	@Id
+    	@GeneratedValue(strategy=GenerationType.AUTO) 
 	private int wallID;
 	private User user;
-	private List<Post> postList;
-	public Wall (int id, User us, List<Post> post) {
-		this.wallID = id;
+
+	@OneToMany(fetch = FetchType.EAGER)
+	private Collection<Post> postList;
+
+	public Wall (User us) {
 		this.user = us;
-		this.postList = post;
 	}
 
 	public int getID() {
@@ -20,7 +32,7 @@ public class Wall {
 		return user;
 	}
 
-	public List<Post> getPosts() {
+	public Collection<Post> getPosts() {
 		return postList;
 	}
 }
