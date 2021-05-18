@@ -1,8 +1,15 @@
 package entities;
 
-import java.util.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Donation {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int donationID;
     private User from;
     private Artist to;
@@ -12,7 +19,6 @@ public class Donation {
     public enum Frequence {ONCE, MONTHLY, ANNUALLY}
 
     public Donation(int donation, User from, Artist to, Money value, Frequence freq) {
-        this.donationID = donation;
         this.from = from;
         this.to = to;
         this.frequence = freq;
