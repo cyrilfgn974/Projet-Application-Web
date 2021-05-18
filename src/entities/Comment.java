@@ -1,21 +1,34 @@
 package entities;
 
-import java.util.*;
+import java.util.Collection;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+
+@Entity
 public class Comment {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int commentID;
 	private User user;
 	private String content;
 	private String datePublication;
-	private List<User> likeList;
-	private List<Comment> replies;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Collection<User> likeList;
+	@OneToMany(fetch = FetchType.EAGER)
+	private Collection<Comment> replies;
 	
-	public Comment(int id, User us, String cont, String date) {
-		this.commentID = id;
+	public Comment(User us, String cont, String date) {
 		this.user = us;
 		this.content = cont;
 		this.datePublication = date;
-		this.likeList = new ArrayList<User>();
 	}
 
 	public boolean userLiked(User user) {
@@ -66,7 +79,7 @@ public class Comment {
 		return likeList.size();
 	}
 
-	public List<Comment> getReplies() {
+	public Collection<Comment> getReplies() {
 		return replies;
 	}
 }
