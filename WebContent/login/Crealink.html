@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<div ng-app="Crealink" ng-controller="myCtrl">
+
+<button ng-click="doClick('register')">S'inscrire</button>
+<button ng-click="doClick('signIn')">Se connecter</button>
+<br>
+	<div ng-show="showRegister">
+		<form novalidate>
+			<h2>Description du profil</h2>
+			<div>
+	    		<label for = "photo">Photo de profil :</label>
+				<input type = "file"
+						id = "photo"
+						name = "photo"
+						accept = "image/png, image/jpeg">
+			</div>
+
+			<div>
+				<label for="first">Prenom : </label>
+				<input type=”text” name="first" id="first" ng-model="user.first" required>
+				<label for="last">Nom : </label>			
+				<input type=”text” name="last" id="last" ng-model="user.last" required>
+				<label for="mail">Mail : </label>
+				<input type=”email” name="mail" id="mail" ng-model="user.mail" required>
+				<label for="phone">Téléphone : </label>
+				<input type=”tel” name="phone" id="phone" ng-model="user.phone">
+				<label for="username">Pseudo : </label>
+				<input type=”text”  name="username" id="username" ng-model="user.username" required>
+				<label for="password">Mot de passe : </label>
+				<input type=”text” name="password" id="password" ng-model="user.password" required>
+			</div>
+
+			<div>
+				<label for="artiste">Artiste</label>
+				<input type="radio" name="artiste" id="artiste" ng-model="user.profil" value="Artiste">
+				<label for="muse">Muse</label>
+				<input type="radio" name="muse" id="muse" ng-model="user.profil" value="Muse">
+			</div>
+
+			<button ng-click="doOK('register')">S'inscrire</button>
+  		</form>
+    </div>
+    <div ng-show="showSignIn">
+	    <h2>Se connecter</h2>
+	    <form name="form" ng-submit="vm.login()" role="form">
+	        <div ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+	            <label for="username">Nom d&#39;utilisateur</label>
+	            <input type="text" name="username" id="username" ng-model="vm.username" required />
+	        </div>
+	        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+	            <label for="password">Mot de passe</label>
+	            <input type="password" name="password" id="password" ng-model="vm.password" required />
+	        </div>
+	        <div class="form-actions">
+	            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading">Se connecter</button>
+	            <a href="../register">Créer un compte</a>
+	        </div>
+	    </form>
+    </div>
+    <div ng-show="showMonMur">
+    	
+    	Mon Mur<br>
+    	Tel :<br>
+    	e-mail :<br>
+    	Status :
+    </div>
+    <div ng-show="showMesCreations">
+    </div>
+    <div ng-show="showMenuArtiste">
+    </div>
+    <div ng-show="showMenuMuse">
+    </div>
+    
+</div>
+
+<script>
+
+function initVars(scope) {
+	scope.user = new Object();
+	scope.oneUser = "";
+	scope.message = "";
+}
+function initView(scope) {
+	scope.showRegister = false;
+	scope.showSignIn = false;
+	scope.showMonMur = false;
+	scope.showMesCreations = false;
+	scope.showMessage = false;
+	scope.showMenuArtiste = false;
+	scope.showMenuMuse = false;
+}
+function click(button, scope, http) {
+	initView(scope);
+	initVars(scope);
+	switch (button) {
+		case "register" :
+			scope.showRegister = true;
+			break;
+		case "signIn" :
+			scope.showSignIn = true;
+			break;
+		case "monMur" :
+			scope.message = "";
+			http.get("rest/getuser").then(function(response) {
+				if (response.status == 200) {
+					scope.user = response.data;
+					//alert(JSON.stringify(scope.user));
+					scope.showMonMur = true;
+				} else {
+					scope.message += "failed to access data account";
+					scope.showMessage = true;
+				}
+			});
+			break;
+		case "mesCreations" :
+			scope.showMesCreations = true;
+			http.get("rest/listpersons").then(function(response) {
+				if (response.status == 200) {
+					scope.listPersons = response.data;
+					//alert(JSON.stringify(scope.listPersons));
+					http.get("rest/listaddresses").then(function(response) {
+						if (response.status == 200) {
+							scope.listAddresses = response.data;
+							scope.showAssociate = true;
+							//alert(JSON.stringify(scope.listAddresses));
+						} else {
+							scope.message += "failed to get list of addresses<br>";
+							scope.showMessage = true;
+						}
+					});	
+				} else {
+					scope.message += "failed to get list of persons<br>";
+					scope.showMessage = true;
+				}
+			});
+			break;
+		case "mesPartenariats" :
+			break;
+		case "mesIdees" :
+			break;
+	}
+}
+function OK(action, scope, http) {
+	initView(scope);
+	switch (action) {
+	case "register" :
+		http.post("rest/register",scope.user).then(function(response) {
+			if (response.status == 204) scope.message = "user added";
+			else scope.message = "failed to add user";
+			scope.showMessage = true;
+		});
+		break;
+	case "signIn" :
+		http.post("rest/signin",scope.user).then(function(response) {
+			if (response.status == 204) scope.message = "user connected";
+			else scope.message = "connection failed";
+			scope.showMessage = true;
+			if () {
+				scope.showMenuArtiste = true;
+			} else {
+				scope.showMenuMuse = true;
+			}
+		});
+		break;
+	case "monMur" :
+		break;
+	case "mesCreations" :
+		break;
+	case "mesPartenariats" :
+		break;
+	case "mesIdees" :
+		break;
+	}
+}
+
+var app = angular.module('Crealink', []);
+app.controller('myCtrl', function($scope,$http) {
+	initVars($scope);
+ 	initView($scope);
+    $scope.doClick=function(button) {click(button,$scope,$http);}
+    $scope.doOK=function(action) {OK(action,$scope,$http);}
+});
+
+</script>
+
+</body>
+</html>
+
+
+// scope.message = ""
