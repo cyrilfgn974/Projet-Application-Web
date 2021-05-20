@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>Crealink - Accueil de Créalink</title>
+    
+  </head>
+
+  <body>
+    
+<div>
+    <div>
+        <div>
+            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+            <div ng-view></div>
+        </div>
+    </div>
+</div>
+
+    
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src = "/app.js"></script>
+<footer>
+  <p>2021 – Crealink</p>
+</footer>
+
+
+
+    
+  </body>
+
+</html>

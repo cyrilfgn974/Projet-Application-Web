@@ -1,6 +1,14 @@
 package entities;
 
-public abstract class User {
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Date;
+import java.util.Objects;
+
+@Entity
+public class User {
 	private String username;
 	private String password;
 	private String first_name;
@@ -26,61 +34,70 @@ public abstract class User {
 		this.phone_number = phone;
 	}
 
-	public boolean equals(User user) {
-		return this.username.equals(user.username);
+	public User() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public String getUsername()
-	{
-		return this.username;
-	}
+	@Basic
+    @Column(name = "username", nullable = false, length = 200)
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword()
-	{
-		return this.password;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getFirstName()
-	{
-		return this.first_name;
-	}
+    @Basic
+    @Column(name = "password", nullable = false, length = 200)
+    public String getPassword() {
+        return password;
+    }
 
-	public String getLastName()
-	{
-		return this.last_name;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getEmail()
-	{
-		return this.email;
-	}
+    @Basic
+    @Column(name = "first_name", nullable = false, length = 200)
+    public String getFirstName() {
+        return first_name;
+    }
 
-	public String getPhoneNumber()
-	{
-		return this.phone_number;
-	}
+    public void setFirstName(String firstName) {
+        this.first_name = firstName;
+    }
 
-	public void setUsername(String change) {
-		this.username = change;
-	}
+    @Basic
+    @Column(name = "last_name", nullable = false, length = 200)
+    public String getLastName() {
+        return last_name;
+    }
 
-	public void setPassword(String change) {
-		this.password = change;
-	}
+    public void setLastName(String lastName) {
+        this.last_name = lastName;
+    }
+	
+	@Basic
+    @Column(name = "email", nullable = false, length = 200)
+    public String getEmail() {
+        return email;
+    }
 
-	public void setFirstName(String change) {
-		this.first_name = change;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setLastName(String change) {
-		this.last_name = change;
-	}
 
-	public void setMail(String change) {
-		this.email = change;
-	}
 
-	public void setPhone(String change) {
-		this.phone_number = change;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return  Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(first_name, user.first_name) &&
+                Objects.equals(last_name, user.last_name);
+    }
 }

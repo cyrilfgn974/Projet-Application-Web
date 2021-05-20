@@ -1,0 +1,25 @@
+<div>
+    <h2>Créer un compte</h2>
+    <form name="form" ng-submit="vm.register()" role="form">
+        <div ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
+            <label for="username">Prénom</label>
+            <input type="text" name="firstName" id="firstName" ng-model="vm.user.firstName" required />
+        </div>
+        <div ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }">
+            <label for="username">Nom de Famille</label>
+            <input type="text" name="lastName" id="Text1" ng-model="vm.user.lastName" required />
+        </div>
+        <div ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+            <label for="username">Nom d&#39;utilisateur</label>
+            <input type="text" name="username" id="username" ng-model="vm.user.username" required />
+        </div>
+        <div ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" ng-model="vm.user.password" required />
+        </div>
+        <div class="form-actions">
+            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading">Créer un compte</button>
+            <a href="../login" class="btn btn-link">Revenir en arrière</a>
+        </div>
+    </form>
+</div>

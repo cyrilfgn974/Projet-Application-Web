@@ -8,5 +8,9 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/home/cfiguin/EAP-7.0.0/modules/system/layers/base/javax/websocket/api/main/jboss-websocket-api_1.1_spec-1.1.1.Final-redhat-1.jar"/>
+	<classpathentry kind="lib" path="/home/cfiguin/EAP-7.0.0/modules/system/layers/base/javax/servlet/api/main/jboss-servlet-api_3.1_spec-1.0.0.Final-redhat-1.jar"/>
+	<classpathentry kind="lib" path="/home/cfiguin/EAP-7.0.0/modules/system/layers/base/javax/persistence/api/main/hibernate-jpa-2.1-api-1.0.0.Final-redhat-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/cfiguin/appliweb/db/hsqldb/lib/hsqldb.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

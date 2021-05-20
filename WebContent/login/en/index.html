@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>Crealink - Login - Créalink</title>
+    
+  </head>
+
+  <body>
+    
+<div>
+    <h2>Login</h2>
+    <form name="form" ng-submit="vm.login()" role="form">
+        <div ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" ng-model="vm.username" required />
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" ng-model="vm.password" required />
+        </div>
+        <div class="form-actions">
+            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading">Login</button>
+            <a href="/register">Register</a>
+        </div>
+    </form>
+</div>
+
+
+    
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src = "/app.js"></script>
+<footer>
+  <p>2021 – Crealink</p>
+</footer>
+
+
+
+    
+  </body>
+
+</html>
