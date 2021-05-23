@@ -166,4 +166,13 @@ public class User {
                 //Objects.equals(first_name, user.first_name) &&
                 //Objects.equals(last_name, user.last_name);
     }
+
+	public boolean isDonated(Artist a) {
+		for (Donation d : this.donations) {
+			if (d.to.equals(a)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
