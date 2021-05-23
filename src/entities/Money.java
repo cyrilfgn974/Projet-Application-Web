@@ -7,6 +7,8 @@ import javax.persistence.Id;
 public class Money {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
     private String currency;
     private long value;
 
