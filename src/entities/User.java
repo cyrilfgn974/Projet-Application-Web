@@ -26,6 +26,11 @@ public class User {
 
 	@ManyToMany(mappedBy = "friends", fetch = FetchType.EAGER)
 	private Collection<User> friends;
+
+	@ManyToMany(mappedBy = "demandesAmisRecues", fetch = FetchType.EAGER)
+	private Collection<User> demandesAmisEnvoyees;
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Collection<User> demandesAmisRecues;
 	
 	protected User(String user, String pass, String first, String last, String mail, String phone) {
 		this.username = user;
@@ -121,6 +126,23 @@ public class User {
     public void setFriends(Collection<User> friends) {
         this.friends = friends;
     }
+
+	public Collection<User> getDemandesAmisEnvoyees() {
+        return demandesAmisEnvoyees;
+    }
+
+    public void setDemandesAmisEnvoyees(Collection<User> demandesAmisEnvoyees) {
+        this.demandesAmisEnvoyees = demandesAmisEnvoyees;
+    }
+
+	public Collection<User> getDemandesAmisRecuees() {
+        return demandesAmisRecuees;
+    }
+
+    public void setDemandesAmisRecuees(Collection<User> demandesAmisRecuees) {
+        this.demandesAmisRecuees = demandesAmisRecuees;
+    }
+
 
     @Override
     public boolean equals(Object o) {
