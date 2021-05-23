@@ -1,6 +1,13 @@
 package entities;
 
-import java.util.*;
+import java.util.Collection;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 
 @Entity
 public abstract class PublicationAbstract implements Publication {
