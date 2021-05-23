@@ -31,6 +31,9 @@ public class User {
 	private Collection<User> demandesAmisEnvoyees;
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Collection<User> demandesAmisRecues;
+
+	@OneToMany(mappedBy = "from", fetch = FetchType.EAGER)
+	private Collection<Donation> donations;
 	
 	protected User(String user, String pass, String first, String last, String mail, String phone) {
 		this.username = user;
@@ -141,6 +144,14 @@ public class User {
 
     public void setDemandesAmisRecuees(Collection<User> demandesAmisRecuees) {
         this.demandesAmisRecuees = demandesAmisRecuees;
+    }
+
+	public Collection<Donation> getDonations() {
+        return donations;
+    }
+
+    public void setDonations(Collection<Donation> donations) {
+        this.donations = donations;
     }
 
 
