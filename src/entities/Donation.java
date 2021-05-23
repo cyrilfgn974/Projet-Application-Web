@@ -11,6 +11,7 @@ public class Donation {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int donationID;
+    @ManyToOne
     private User from;
     private Artist to;
     private Frequence frequence;
