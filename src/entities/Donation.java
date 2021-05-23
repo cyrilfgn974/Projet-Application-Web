@@ -15,6 +15,7 @@ public class Donation {
     private User from;
     private Artist to;
     private Frequence frequence;
+    @ManyToOne
     private Money value;
 
     public enum Frequence {ONCE, MONTHLY, ANNUALLY}
