@@ -16,13 +16,15 @@ public class User {
 	private String email;
 	private String phone_number;
 
-	public enum STATUS {
+	public enum Status {
 		ONLINE;
 		OFFLINE;
 		DONT_DISTURB;
 	}
-	private STATUS status;
+	private Status status;
 	private String description;
+
+	@ManyToMany(mappedBy = "friends", fetch = FetchType.EAGER)
 	private Collection<User> friends;
 	
 	protected User(String user, String pass, String first, String last, String mail, String phone) {
@@ -32,6 +34,10 @@ public class User {
 		this.last_name = last;
 		this.email = mail;
 		this.phone_number = phone;
+		// L'utilisateur n'est pas connecté quand il crée son compte
+		this.status = Status.OFFLINE;
+		// L'utilisateur pourra modifier à tout moment sa description
+		this.description = "";
 	}
 
 	public User() {
@@ -88,16 +94,43 @@ public class User {
         this.email = email;
     }
 
+	@Basic
+    @Column(name = "status", nullable = false, length = 200)
+    public Status getStatus() {
+        return status;
+    }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+	@Basic
+    @Column(name = "description", nullable = false, length = 200)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Collection<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Collection<User> friends) {
+        this.friends = friends;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return  Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(first_name, user.first_name) &&
-                Objects.equals(last_name, user.last_name);
+        return  Objects.equals(username, user.username); //&&
+				//pseudos choisis de manière unique !?
+                //Objects.equals(password, user.password) &&
+                //Objects.equals(first_name, user.first_name) &&
+                //Objects.equals(last_name, user.last_name);
     }
 }
