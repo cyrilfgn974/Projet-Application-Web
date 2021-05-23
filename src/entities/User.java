@@ -167,12 +167,12 @@ public class User {
                 //Objects.equals(last_name, user.last_name);
     }
 
-	public boolean isDonated(Artist a) {
+	public Donation getDonation(Artist a) {
 		for (Donation d : this.donations) {
 			if (d.to.equals(a)) {
-				return true;
+				return d;
 			}
 		}
-		return false;
+		return null;
 	}
 }
