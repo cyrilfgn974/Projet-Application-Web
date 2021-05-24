@@ -122,9 +122,13 @@ public class Facade {
 	@Produces({"application/json"})
 	public List<Message> getMessages(User u, String pseudoFriend) {
 		User friend = em.find(User.class, pseudoFriend);
-		Query query = em.createQuery("select chat from Chat chat where chat.user1 = u and chat.user2 = friend"
-				+ "or chat.user1 = friend and chat.user2 = u");
-		Chat chat = (Chat) query.getSingleResult();
+		TypedQuery<Chat> query = em.createQuery("select chat from Chat chat"
+				+ "where chat.user1.pseudonyme = :pseudoUser and chat.user2.pseudonyme = :pseudoFriend"
+				+ "or chat.user1.pseudonyme = :pseudoFriend and chat.user2.pseudonyme = :pseudoUser");
+		Chat chat = query
+			.setParameter("pseudoUser", u.getPseudonyme())
+			.setParameter("pseudoFriend", pseudoFriend)
+			.getSingleResult();
 		return chat.getMessages();
 	}
 
