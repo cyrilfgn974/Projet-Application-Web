@@ -35,7 +35,7 @@ public class User {
 	@OneToMany(mappedBy = "from", fetch = FetchType.EAGER)
 	private Collection<Donation> donations;
 	
-	protected User(String user, String pass, String first, String last, String mail, String phone) {
+	public User(String user, String pass, String first, String last, String mail, String phone) {
 		this.username = user;
 		this.password = pass;
 		this.first_name = first;
@@ -48,9 +48,7 @@ public class User {
 		this.description = "";
 	}
 
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
+	public User() {}
 
 	@Basic
     @Column(name = "username", nullable = false, length = 200)
