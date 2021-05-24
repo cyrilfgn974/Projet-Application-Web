@@ -27,6 +27,8 @@ public class Donation {
         this.value = value;
     }
 
+    public Donation () {}
+
     public int getID() {
         return donationID;
     }
