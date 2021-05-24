@@ -16,6 +16,8 @@ public class Post extends PublicationAbstract {
 		this.text = text;
 	}
 
+	public Post () {}
+
 	public String getTextContent() {
 		return text;
 	}
