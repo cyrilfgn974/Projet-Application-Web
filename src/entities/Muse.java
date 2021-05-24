@@ -13,9 +13,11 @@ public class Muse extends User {
 	@ManyToMany(fetch = FetchType.EAGER)
 	Collection<Artist> artistes;
 
-	protected Muse(String user, String pass, String first, String last, String mail, String phone) {
+	public Muse(String user, String pass, String first, String last, String mail, String phone) {
 		super(user, pass, first, last, mail, phone);
 	}
+
+	public Muse () {}
 
 	public Collection<Artist> getArtistes() {
 		return artistes;
