@@ -27,9 +27,9 @@ public class User {
 	@ManyToMany(mappedBy = "friends", fetch = FetchType.EAGER)
 	private Collection<User> friends;
 
-	@ManyToMany(mappedBy = "demandesAmisRecues", fetch = FetchType.EAGER)
-	private Collection<User> demandesAmisEnvoyees;
 	@ManyToMany(fetch = FetchType.EAGER)
+	private Collection<User> demandesAmisEnvoyees;
+	@ManyToMany(mappedBy = "demandesAmisEnvoyees", fetch = FetchType.EAGER)
 	private Collection<User> demandesAmisRecues;
 
 	@OneToMany(mappedBy = "from", fetch = FetchType.EAGER)
