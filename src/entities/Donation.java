@@ -13,14 +13,14 @@ public class Donation {
     private int donationID;
     @ManyToOne
     private User from;
-    private Artist to;
+    private User to;
     private Frequence frequence;
     @ManyToOne
     private Money value;
 
     public enum Frequence {MONTHLY, ANNUALLY}
 
-    public Donation(User from, Artist to, Money value, Frequence freq) {
+    public Donation(User from, User to, Money value, Frequence freq) {
         this.from = from;
         this.to = to;
         this.frequence = freq;
@@ -29,7 +29,7 @@ public class Donation {
 
     public Donation () {}
 
-    public int getID() {
+    public int getDonationID() {
         return donationID;
     }
 
@@ -47,5 +47,25 @@ public class Donation {
 
     public Money getValue() {
         return value;
+    }
+
+    public void setDonationID (int id) {
+        this.donationID = id;
+    }
+
+    public void setFrom (User from) {
+        this.from = from;
+    }
+
+    public void setTo (User to) {
+        this.to = to;
+    }
+
+    public void setFrequence (Frequence frequence) {
+        this.frequence = frequence;
+    }
+
+    public void setValue (Money value) {
+        this.value = value;
     }
 }
