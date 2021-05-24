@@ -24,6 +24,8 @@ public class Wall {
 		this.user = us;
 	}
 
+	public Wall () {}
+
 	public int getID() {
 		return wallID;
 	}
