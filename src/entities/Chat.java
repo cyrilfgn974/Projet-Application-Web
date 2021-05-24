@@ -29,6 +29,8 @@ public class Chat {
         this.user2 = user2;
     }
 
+    public Chat() {}
+
     public User getUser1() {
         return user1;
     }
