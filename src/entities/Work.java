@@ -14,6 +14,8 @@ public class Work extends PublicationAbstract {
         this.content = workContent;
     }
 
+    public Work () {}
+
     public boolean userLiked(User user) {
         for (User u: likeList) {
             if (user.equals(u)) {
