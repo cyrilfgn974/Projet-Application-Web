@@ -18,7 +18,7 @@ public class Donation {
     @ManyToOne
     private Money value;
 
-    public enum Frequence {ONCE, MONTHLY, ANNUALLY}
+    public enum Frequence {MONTHLY, ANNUALLY}
 
     public Donation(User from, Artist to, Money value, Frequence freq) {
         this.from = from;
