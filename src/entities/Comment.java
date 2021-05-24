@@ -31,6 +31,8 @@ public class Comment {
 		this.datePublication = date;
 	}
 
+	public Comment() {}
+
 	public boolean userLiked(User user) {
 		for (User u: likeList) {
 			if (user.equals(u)) {
