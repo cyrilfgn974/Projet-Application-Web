@@ -24,6 +24,8 @@ public class Gallery {
         this.artistOwner = artistOwner;
     }
 
+    public Gallery () {}
+
     public int getID() {
         return galleryId;
     }
