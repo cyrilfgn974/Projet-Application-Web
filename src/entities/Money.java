@@ -19,6 +19,8 @@ public class Money {
         this.currency = currency;
     }
 
+    public Money () {}
+
     public Money(double value, String currency) {
         this.value = Math.round(value * 100.0);
         this.currency = currency;
