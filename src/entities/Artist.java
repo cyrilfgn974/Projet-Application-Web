@@ -13,8 +13,12 @@ public class Artist extends User {
 	@ManyToMany(mappedBy = "artistes", fetch = FetchType.EAGER)
 	Collection<Muse> muses;
 
-	protected Artist(String user, String pass, String first, String last, String mail, String phone) {
+	public Artist(String user, String pass, String first, String last, String mail, String phone) {
 		super(user, pass, first, last, mail, phone);
+	}
+
+	public Artist() {
+		super();
 	}
 
 	public Collection<Muses> getMuses() {
