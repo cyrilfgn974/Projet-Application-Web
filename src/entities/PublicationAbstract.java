@@ -1,6 +1,9 @@
 package entities;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
+
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +16,7 @@ import javax.persistence.OneToMany;
 public abstract class PublicationAbstract implements Publication {
 
 	@Id
-    	@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	protected int id;
 	protected User user;
 	protected Date date;
@@ -33,7 +36,14 @@ public abstract class PublicationAbstract implements Publication {
 		this.date = date;
 	}
 
-	public boolean userLiked(User user) {
+	public PublicationAbstract() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	
+
+	public boolean userLikeentitiesd(User user) {
 		for (User u: likeList) {
 			if (user.equals(u)) {
 				return true;

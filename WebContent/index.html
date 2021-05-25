@@ -1,35 +1,133 @@
 <!DOCTYPE html>
-<html lang="fr">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
-      <title>Crealink - Accueil de Créalink</title>
-    
-  </head>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
 
-  <body>
-    
-<div>
-    <div>
-        <div>
-            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-            <div ng-view></div>
-        </div>
+<div ng-app="Crealink" ng-controller="myCtrl">
+
+<button ng-click="doClick('register')">S'inscrire</button>
+<button ng-click="doClick('signIn')">Se connecter</button>
+<br>
+	<div ng-show="showRegister">
+		<form novalidate>
+			<h2>Description du profil</h2>
+			<div>
+	    		<label for = "photo">Photo de profil :</label>
+				<input type = "file"
+						id = "photo"
+						name = "photo"
+						accept = "image/png, image/jpeg">
+			</div>
+
+			<div>
+				<label for="first">Prenom : </label>
+				<input type=”text” name="first" id="first" ng-model="user.first" required>
+				<label for="last">Nom : </label>			
+				<input type=”text” name="last" id="last" ng-model="user.last" required>
+				<label for="mail">Mail : </label>
+				<input type=”email” name="mail" id="mail" ng-model="user.mail" required>
+				<label for="phone">Téléphone : </label>
+				<input type=”tel” name="phone" id="phone" ng-model="user.phone">
+				<label for="username">Pseudo : </label>
+				<input type=”text”  name="username" id="username" ng-model="user.username" required>
+				<label for="password">Mot de passe : </label>
+				<input type=”text” name="password" id="password" ng-model="user.password" required>
+			</div>
+
+			<div>
+				<label for="artiste">Artiste</label>
+				<input type="radio" name="artiste" id="artiste" ng-model="user.profil" value="artiste">
+				<label for="muse">Muse</label>
+				<input type="radio" name="muse" id="muse" ng-model="user.profil" value="muse">
+				<label for="user">Muse</label>
+				<input type="radio" name="user" id="user" ng-model="user.profil" value="user">
+			</div>
+
+			<button ng-click="doOK('register')">S'inscrire</button>
+  		</form>
     </div>
-</div>
+    <div ng-show="showSignIn">
+	    <h2>Se connecter</h2>
+	    <form name="form" role="form" novalidate>
+	        <div ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+	            <label for="username">Nom d&#39;utilisateur</label>
+	            <input type="text" name="username" id="username" ng-model="logData.username" required />
+	        </div>
+	        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+	            <label for="password">Mot de passe</label>
+	            <input type="password" name="password" id="password" ng-model="logData.password" required />
+	        </div>
+	        <div class="form-actions">
+	            <button type="submit" ng-disabled="form.$invalid || logData.dataLoading" ng-click="doOK('signIn')">Se connecter</button>
+	        </div>
+	    </form>
 
-    
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-<script src = "/app.js"></script>
-<footer>
-  <p>2021 – Crealink</p>
-</footer>
+		<button ng-click="doOK('register')">Créer un compte</button>
+    </div>
+    <div ng-show="showMonMur">
+    	
+    	Mon Mur<br>
+    	Tel :<br>
+    	e-mail :<br>
+    	Status :
+    </div>
+    <div ng-show="showMesCreations">
+    </div>
+    <div ng-show="showMenuArtiste">
+    </div>
+    <div ng-show="showMenuMuse">
+    </div>
+    <div ng-show="showMenuUser">
+    </div>
+    <div ng-show="showContacts">
+    	<h2>Demandes d'ami</h2>
+    	<table>
+	    	<tr ng-repeat="profile in listDemandesAmi">
+	    		<td>{{ profile.username }}</td>
+	    		<td>({{ profile.first_name }} {{profile.last_name}})</td>
+	    		<td>
+	    			<button ng-click="doOK('confirmerAmi')"
+	    			ng-model = "$parent.oneFriend" value = "{{profile.username}}">Confirm</button>
+	    		</td>
+	    	</tr>
+	  	</table>
+    	<h2>Amis</h2>
+    	<table>
+	    	<tr ng-repeat="profile in listAmis">
+	    		<td>{{ profile.username }}</td>
+	    		<td>({{ profile.first_name }} {{profile.last_name}})</td>
+	    		<td>
+	    			<button ng-click="doOK('parlerAmi')"
+	    			ng-model = "$parent.oneFriend" value = "{{profile.username}}">Chat</button>
+	    		</td>
+	    	</tr>
+	  	</table>
+	  	<h2>Vous connaissez peut-être</h2>
+	  	<table>
+	    	<tr ng-repeat="profile in listPropositionsAmi">
+	    		<td>{{ profile.username }}</td>
+	    		<td>({{ profile.first_name }} {{profile.last_name}})</td>
+	    		<td>
+	    			<button ng-click="doOK('demanderAmi')"
+	    			ng-model = "$parent.oneFriend" value = "{{profile.username}}">Add</button>
+				</td>
+	    	</tr>
+	  	</table>
+    </div>
+    <div ng-show="showChat">
+	    <ul>
+	    	<li ng-repeat="m in listMessages">{{m}}</li>
+	  	</ul>
+	  	<form novalidate>
+		  	<textarea rows="10" cols="5" ng-model = "$parent.oneMessage">Type your message here</textarea>
+		  	<button ng-click="doOK('envoyerMessage')">Send</button>
+		</form>
+    </div>
+    <div ng-show="showMessage">
+    {{message}}
+    </div>
 
+	<script src="app.js"></script>
 
-
-    
-  </body>
-
+	</body>
 </html>

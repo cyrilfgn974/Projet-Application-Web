@@ -5,16 +5,18 @@ import java.util.*;
 public class Work extends PublicationAbstract {
     private Object content;
     public Work(int workID, Artist artistOwner, Object workContent) {
-        super(workID, artistOwner);
+        super(artistOwner);
         this.content = workContent;
     }
 
     public Work(int workID, Artist artistOwner, Object workContent, Date date) {
-        super(workID, artistOwner, date);
+        super(artistOwner, date);
         this.content = workContent;
     }
 
-    public Work () {}
+    public Work() {
+    	super();
+    }
 
     public boolean userLiked(User user) {
         for (User u: likeList) {

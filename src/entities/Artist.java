@@ -21,7 +21,7 @@ public class Artist extends User {
 		super();
 	}
 
-	public Collection<Muses> getMuses() {
+	public Collection<Muse> getMuses() {
 		return muses;
 	}
 

@@ -1,10 +1,16 @@
 package entities;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 
 @Entity
 public class Post extends PublicationAbstract {
 	String text;
+	
+	public Post() {
+		super();
+	}
 
 	public Post(User user, String text) {
 		super(user);
@@ -16,10 +22,16 @@ public class Post extends PublicationAbstract {
 		this.text = text;
 	}
 
-	public Post () {}
+	
 
 	public String getTextContent() {
 		return text;
+	}
+
+	@Override
+	public boolean userLiked(User user) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
 

@@ -1,9 +1,7 @@
 package entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
@@ -17,9 +15,7 @@ public class User {
 	private String phone_number;
 
 	public enum Status {
-		ONLINE;
-		OFFLINE;
-		DONT_DISTURB;
+		ONLINE, OFFLINE, DONT_DISTURB
 	}
 	private Status status;
 	private String description;
@@ -29,12 +25,14 @@ public class User {
 
 	@ManyToMany(mappedBy = "demandesAmisRecues", fetch = FetchType.EAGER)
 	private Collection<User> demandesAmisEnvoyees;
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Collection<User> demandesAmisRecues;
 
 	@OneToMany(mappedBy = "from", fetch = FetchType.EAGER)
 	private Collection<Donation> donations;
-	
+
+
 	public User(String user, String pass, String first, String last, String mail, String phone) {
 		this.username = user;
 		this.password = pass;
@@ -46,6 +44,7 @@ public class User {
 		this.status = Status.OFFLINE;
 		// L'utilisateur pourra modifier à tout moment sa description
 		this.description = "";
+
 	}
 
 	public User() {}
@@ -136,12 +135,12 @@ public class User {
         this.demandesAmisEnvoyees = demandesAmisEnvoyees;
     }
 
-	public Collection<User> getDemandesAmisRecuees() {
-        return demandesAmisRecuees;
+	public Collection<User> getDemandesAmisRecues() {
+        return demandesAmisRecues;
     }
 
     public void setDemandesAmisRecuees(Collection<User> demandesAmisRecuees) {
-        this.demandesAmisRecuees = demandesAmisRecuees;
+        this.demandesAmisRecues = demandesAmisRecuees;
     }
 
 	public Collection<Donation> getDonations() {
@@ -167,7 +166,7 @@ public class User {
 
 	public Donation getDonation(Artist a) {
 		for (Donation d : this.donations) {
-			if (d.to.equals(a)) {
+			if (d.getTo().equals(a)) {
 				return d;
 			}
 		}

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jboss-websocket-api_1.1_spec-1.1.1.Final-redhat-1">
+    <CLASSES>
+      <root url="jar:////wsl$/Ubuntu-20.04/home/cfiguin/EAP-7.0.0/modules/system/layers/base/javax/websocket/api/main/jboss-websocket-api_1.1_spec-1.1.1.Final-redhat-1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

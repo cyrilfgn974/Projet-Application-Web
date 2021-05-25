@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jboss-jaxrs-api_2.0_spec-1.0.0.Final-redhat-1">
+    <CLASSES>
+      <root url="jar:////wsl$/Ubuntu-20.04/home/cfiguin/EAP-7.0.0/modules/system/layers/base/javax/ws/rs/api/main/jboss-jaxrs-api_2.0_spec-1.0.0.Final-redhat-1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

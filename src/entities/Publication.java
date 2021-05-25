@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.Collection;
+import java.util.Date;
 
 public interface Publication {
     public boolean userLiked(User user);

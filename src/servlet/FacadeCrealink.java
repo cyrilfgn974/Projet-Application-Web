@@ -3,23 +3,25 @@ package servlet;
 import entities.*;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import org.apache.catalina.User;
+import entities.User;
 
 
 @Singleton
 @Path("/")
-public class Facade {
+public class FacadeCrealink {
 
 	@PersistenceContext
 	EntityManager em;
@@ -89,7 +91,7 @@ public class Facade {
 	public boolean faireDonation(User u, String pseudoArtist, Money value, String freq) {
 		try {
 			Artist artist = em.find(Artist.class, pseudoArtist);
-			Donation.Frequence f = Enum.valueOf(Donation.Frequence, freq);
+			Donation.Frequence f = Enum.valueOf(Donation.Frequence.class, freq);
 			if (artist != null && u.getDonation(artist) == null) {
 				em.persist(value);
 				Donation d = new Donation(u, artist, value, f);
@@ -110,23 +112,25 @@ public class Facade {
 		Artist artist = em.find(Artist.class, pseudoArtist);
 		if (artist != null) {
 			Donation donationArtist = u.getDonation(artist);
-			if (donation != null) u.donations.remove();
+			if (donationArtist != null) u.getDonations().remove(donationArtist);
 		}
 	}
 
 
 	// Gestion du Chat
 
+	
 	@GET
 	@Path("/getmessages")
 	@Produces({"application/json"})
 	public List<Message> getMessages(User u, String pseudoFriend) {
 		User friend = em.find(User.class, pseudoFriend);
-		TypedQuery<Chat> query = em.createQuery("select chat from Chat chat"
+		TypedQuery<Chat> query = (TypedQuery<Chat>) em.createQuery("select chat from Chat chat"
 				+ "where chat.user1.pseudonyme = :pseudoUser and chat.user2.pseudonyme = :pseudoFriend"
 				+ "or chat.user1.pseudonyme = :pseudoFriend and chat.user2.pseudonyme = :pseudoUser");
+		TypedQuery<Chat> query1 = (TypedQuery<Chat>) em.createQuery("SELECT chat FROM Chat chat" + "where chat.user1.pseudonyme = :pseudoUser and chat.user2.pseudonyme = :pseudoFriend");
 		Chat chat = query
-			.setParameter("pseudoUser", u.getPseudonyme())
+			.setParameter("pseudoUser", u.getUsername())
 			.setParameter("pseudoFriend", pseudoFriend)
 			.getSingleResult();
 		return chat.getMessages();
@@ -136,13 +140,14 @@ public class Facade {
 	@Path("/sendmessage")
 	@Consumes({"application/json"})
 	public void sendMessage(User u, String pseudoFriend, String message) {
+		Message mess = new Message(message);
+		em.persist(mess);
 		User friend = em.find(User.class, pseudoFriend);
 		if (friend != null && u.getFriends().contains(friend)) {
 			List<Message> messages = this.getMessages(u, pseudoFriend);
 			messages.remove(0);
-			messages.add(message);
+			messages.add(mess);
 		}
 	}
+	
 }
-
-//Comment rédiger une requête SQL ?
