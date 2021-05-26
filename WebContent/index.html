@@ -39,7 +39,7 @@
 				<input type="radio" name="artiste" id="artiste" ng-model="user.profil" value="artiste">
 				<label for="muse">Muse</label>
 				<input type="radio" name="muse" id="muse" ng-model="user.profil" value="muse">
-				<label for="user">Muse</label>
+				<label for="user">Simple User</label>
 				<input type="radio" name="user" id="user" ng-model="user.profil" value="user">
 			</div>
 
@@ -58,7 +58,7 @@
 	            <input type="password" name="password" id="password" ng-model="logData.password" required />
 	        </div>
 	        <div class="form-actions">
-	            <button type="submit" ng-disabled="form.$invalid || logData.dataLoading" ng-click="doOK('signIn')">Se connecter</button>
+	            <button type="submit" ng-disabled="form.$invalid || logData.dataLoading" ng-click="doOk('signIn')">Se connecter</button>
 	        </div>
 	    </form>
 
@@ -122,6 +122,29 @@
 		  	<textarea rows="10" cols="5" ng-model = "$parent.oneMessage">Type your message here</textarea>
 		  	<button ng-click="doOK('envoyerMessage')">Send</button>
 		</form>
+    </div>
+    <div ng-show="showListUsers">
+    	<h2>Consulter un profil</h2>
+    	<form novalidate>
+    		<label ng-repeat="u in listUsers">
+				<input type="radio" ng-model="$parent.oneUser" value="{{u.pseudonyme}}">{{ u.pseudonyme }} ({{ u.first_name }} {{u.last_name}})<br>
+			</label>
+	  		<button ng-click="doOK('showProfile')">Consulter</button>
+    	</form>
+    </div>
+	<div ng-show="showProfile">
+    	<form novalidate>
+    		<input type="radio" ng-model="$parent.frequenceDonation" value="MONTHLY" selected>Monthly<br>
+    		<input type="radio" ng-model="$parent.frequenceDonation" value="ANNUALLY">Annually<br>
+    		<input type="number" ng-model="moneyDonation.value"><br>
+    		<select ng-model="">
+    			<option ng-model="moneyDonation.currency" value="dollar">Dollar US</option>
+    			<option ng-model="moneyDonation.currency" value="euro" selected>Euro</option>
+    			<option ng-model="moneyDonation.currency" value="yuan">Yuan</option>
+    		</select>
+    		<button ng-click="doOK('donate')" ng-disabled="{{$parent.isDonating}}">Start donating</button>
+    	</form>
+    	<button ng-click="doOK('stopDonation')" ng-disabled="{{$parent.isDonating}}=false">Stop donating</button>
     </div>
     <div ng-show="showMessage">
     {{message}}
