@@ -38,6 +38,9 @@ public class User {
 	@ManyToMany(mappedBy = "collaborateurs", fetch = FetchType.EAGER)
 	private Collection<Work> works;
 
+	@ManyToOne(mappedBy = "user", fetch = FetchType.EAGER)
+	private Collection<Post> posts;
+
 
 	public User(String user, String pass, String first, String last, String mail, String phone) {
 		this.username = user;
@@ -163,6 +166,14 @@ public class User {
 
 	public void setWorks(Collection<Work> works) {
 		this.works = works;
+	}
+
+	public Collection<Post> getPosts () {
+		return posts;
+	}
+
+	public void setPosts (Collection<Post> posts) {
+		this.posts =posts;
 	}
 
 
