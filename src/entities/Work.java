@@ -26,6 +26,14 @@ public class Work {
 
     public Work() {}
 
+    public int getWorkID () {
+        return workID;
+    }
+
+    public void setWorkID (int workID) {
+        this.workID = workID;
+    }
+
     public Object getContent() {
         return content;
     }
