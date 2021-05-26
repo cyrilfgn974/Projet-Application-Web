@@ -56,6 +56,13 @@ public class FacadeCrealink {
 		return null;
 	}
 
+	@GET
+	@Path("/listusers")
+    	@Produces({ "application/json" })
+	public Collection<User> listUsers() {
+		return em.createQuery("from User", User.class).getResultList();
+	}
+
 
 	// Gestion des amis de l'utilisateur
 
@@ -65,7 +72,7 @@ public class FacadeCrealink {
 	public boolean demanderAmi(User u, String pseudoFriend) {
 		User newFriend = em.find(User.class, pseudoFriend);
 		if (newFriend != null && !u.getFriends().contains(newFriend)) {
-			u.getDemandesAmisEnvoyees().add(newFriend);
+			newFriend.getDemandesAmisRecues().add(u);
 			return true;
 		}
 		return false;
@@ -88,15 +95,15 @@ public class FacadeCrealink {
 	@POST
 	@Path("/fairedonation")
 	@Consumes({"application/json"})
-	public boolean faireDonation(User u, String pseudoArtist, Money value, String freq) {
+	public boolean faireDonation(User u, String pseudoDon, Money value, String freq) {
 		try {
-			Artist artist = em.find(Artist.class, pseudoArtist);
+			User userDon = em.find(User.class, pseudoDon);
 			Donation.Frequence f = Enum.valueOf(Donation.Frequence.class, freq);
-			if (artist != null && u.getDonation(artist) == null) {
+			if (userDon != null && u.getDonation(userDon) == null) {
 				em.persist(value);
-				Donation d = new Donation(u, artist, value, f);
+				Donation d = new Donation(u, userDon, value, f);
 				em.persist(d);
-				u.getDonations().add(d);
+				d.setFrom(u);
 				return true;
 			}
 			return false;
@@ -108,13 +115,24 @@ public class FacadeCrealink {
 	@POST
 	@Path("/arreterdonation")
 	@Consumes({"application/json"})
-	public void arreterDonation(User u, String pseudoArtist) {
-		Artist artist = em.find(Artist.class, pseudoArtist);
-		if (artist != null) {
-			Donation donationArtist = u.getDonation(artist);
-			if (donationArtist != null) u.getDonations().remove(donationArtist);
+	public void arreterDonation(User u, String pseudoDon) {
+		User userDon = em.find(User.class, pseudoDon);
+		if (userDon != null) {
+			Donation donation = u.getDonation(userDon);
+			if (donation != null) em.remove(donation);
 		}
 	}
+
+	@GET
+    	@Path("/isdonating")
+    	@Consumes({"application/json"})
+    	public boolean isDonating(User u, String pseudoDon) {
+        	User userDon = em.find(User.class, pseudoDon);
+        	if (userDon != null) {
+        		return u.getDonations().contains(userDon);
+        	}
+        	return false;
+    	}
 
 
 	// Gestion du Chat
@@ -126,9 +144,8 @@ public class FacadeCrealink {
 	public List<Message> getMessages(User u, String pseudoFriend) {
 		User friend = em.find(User.class, pseudoFriend);
 		TypedQuery<Chat> query = (TypedQuery<Chat>) em.createQuery("select chat from Chat chat"
-				+ "where chat.user1.pseudonyme = :pseudoUser and chat.user2.pseudonyme = :pseudoFriend"
-				+ "or chat.user1.pseudonyme = :pseudoFriend and chat.user2.pseudonyme = :pseudoUser");
-		TypedQuery<Chat> query1 = (TypedQuery<Chat>) em.createQuery("SELECT chat FROM Chat chat" + "where chat.user1.pseudonyme = :pseudoUser and chat.user2.pseudonyme = :pseudoFriend");
+				+ "where chat.user1.username = :pseudoUser and chat.user2.username = :pseudoFriend"
+				+ "or chat.user1.username = :pseudoFriend and chat.user2.username = :pseudoUser");
 		Chat chat = query
 			.setParameter("pseudoUser", u.getUsername())
 			.setParameter("pseudoFriend", pseudoFriend)
