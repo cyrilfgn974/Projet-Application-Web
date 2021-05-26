@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("ADMIN")
 public class Administrator extends User {
 
 	public Administrator(String user, String pass, String first, String last, String mail, String phone) {
