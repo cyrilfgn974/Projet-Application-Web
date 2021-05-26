@@ -32,6 +32,9 @@ public class User {
 	@OneToMany(mappedBy = "from", fetch = FetchType.EAGER)
 	private Collection<Donation> donations;
 
+	@ManyToMany(mappedBy = "collaborateurs", fetch = FetchType.EAGER)
+	private Collection<Work> works;
+
 
 	public User(String user, String pass, String first, String last, String mail, String phone) {
 		this.username = user;
@@ -150,6 +153,14 @@ public class User {
     public void setDonations(Collection<Donation> donations) {
         this.donations = donations;
     }
+
+	public Collection<Work> getWorks() {
+		return works;
+	}
+
+	public void setWorks(Collection<Work> works) {
+		this.works = works;
+	}
 
 
     @Override
