@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
+@DiscriminatorValue("MUSE")
 public class Muse extends User {
 
 	@ManyToMany(fetch = FetchType.EAGER)
