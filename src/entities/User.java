@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TYPE_USER")
+@DiscriminatorValue("USER")
 public class User {
 	private String username;
 	private String password;
