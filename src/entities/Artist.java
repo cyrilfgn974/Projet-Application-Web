@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
+@DiscriminatorValue("ARTIST")
 public class Artist extends User {
 
 	@ManyToMany(mappedBy = "artistes", fetch = FetchType.EAGER)
