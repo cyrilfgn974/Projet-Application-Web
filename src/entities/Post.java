@@ -21,6 +21,7 @@ public class Post implements Publication {
 	@OneToMany(fetch = FetchType.EAGER)
 	private User user;
 	private Date date;
+	private String title;
 	private String text;
 
 	@OneToMany(fetch = FetchType.EAGER)
@@ -28,15 +29,17 @@ public class Post implements Publication {
 	@OneToMany(fetch = FetchType.EAGER)
 	private Collection<User> likeList;
 
-	public Post(User user, String text) {
+	public Post(User user, String title, String text) {
 		this.user = user;
 		this.date = new Date();
+		this.title = title;
 		this.text = text;
 	}
 
-	public Post(User user, Date date, String text) {
+	public Post(User user, Date date, String title, String text) {
         this.user = user;
 		this.date = date;
+		this.title = title
 		this.text = text;
 	}
 
@@ -71,6 +74,10 @@ public class Post implements Publication {
 		return date;
 	}
 
+	public String getTitle () {
+		return title;
+	}
+
 	public String getText () {
 		return text;
 	}
@@ -101,6 +108,10 @@ public class Post implements Publication {
 
 	public void setLikeList (Collection<User> likeList) {
 		this.likeList = likeList;
+	}
+
+	public void setTitle (String title) {
+		thie.title = title;
 	}
 
 	public void setText (String text) {
