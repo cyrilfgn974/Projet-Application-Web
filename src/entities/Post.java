@@ -71,6 +71,10 @@ public class Post implements Publication {
 		return date;
 	}
 
+	public String getText () {
+		return text;
+	}
+
 	public Collection<Comment> getComments() {
 		return comments;
 	}
@@ -97,5 +101,9 @@ public class Post implements Publication {
 
 	public void setLikeList (Collection<User> likeList) {
 		this.likeList = likeList;
+	}
+
+	public void setText (String text) {
+		this.text = text;
 	}
 }
