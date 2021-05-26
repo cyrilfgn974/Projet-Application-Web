@@ -62,6 +62,10 @@ public class Post implements Publication {
 		return comments;
 	}
 
+	public int getNbLikes () {
+		return likeList.size();
+	}
+
 	public int getId() {
 		return id;
 	}
