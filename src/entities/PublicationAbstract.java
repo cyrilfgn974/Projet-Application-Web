@@ -13,37 +13,36 @@ import javax.persistence.OneToMany;
 
 
 @Entity
-public abstract class PublicationAbstract implements Publication {
+public class Post implements Publication {
 
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	protected int id;
-	protected User user;
-	protected Date date;
+	private int id;
+	@OneToMany(fetch = FetchType.EAGER)
+	private User user;
+	private Date date;
+	private String text;
 
 	@OneToMany(fetch = FetchType.EAGER)
-	protected Collection<Comment> listComment;
+	private Collection<Comment> comments;
 	@OneToMany(fetch = FetchType.EAGER)
-	protected Collection<User> likeList;
+	private Collection<User> likeList;
 
-	protected PublicationAbstract(User user) {
+	public Post(User user, String text) {
 		this.user = user;
 		this.date = new Date();
+		this.text = text;
 	}
 
-	protected PublicationAbstract(User user, Date date) {
-        this(user);
+	public Post(User user, Date date, String text) {
+        this.user = user;
 		this.date = date;
+		this.text = text;
 	}
 
-	public PublicationAbstract() {
-		// TODO Auto-generated constructor stub
-	}
+	public Post () {}
 
-
-	
-
-	public boolean userLikeentitiesd(User user) {
+	public boolean isLiking (User user) {
 		for (User u: likeList) {
 			if (user.equals(u)) {
 				return true;
@@ -54,14 +53,14 @@ public abstract class PublicationAbstract implements Publication {
 
 	public Collection<Comment> getCommentsFromUser(User user) {
 		Collection<Comment> comments = new HashSet<Comment>();
-		for (Comment c: listComment) {
+		for (Comment c: comments) {om
 			comments.addAll(c.getCommentsFromUser(user));
 		}
 
 		return comments;
 	}
 
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 
@@ -69,7 +68,7 @@ public abstract class PublicationAbstract implements Publication {
 		return user;
 	}
 
-	public Date getPublicationDate() {
+	public Date getDate() {
 		return date;
 	}
 
