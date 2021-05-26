@@ -11,4 +11,9 @@ public interface Publication {
     public Date getPublicationDate();
     public Collection<Comment> getComments();
     public Collection<User> getLikeUsers();
+    public void setID(int ID);
+    public void setOwner(User owner);
+    public void setPublicationDate(Date date);
+    public void setComments(Collection<Comment> comments);
+    public void setLikeUsers(Collection<User> likeUsers);
 }
