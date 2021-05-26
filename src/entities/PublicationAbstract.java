@@ -43,7 +43,7 @@ public class Post implements Publication {
 	public Post () {}
 
 	public boolean isLiking (User user) {
-		for (User u: likeList) {
+		for (User u: this.likeList) {
 			if (user.equals(u)) {
 				return true;
 			}
@@ -52,11 +52,10 @@ public class Post implements Publication {
 	}
 
 	public Collection<Comment> getCommentsFromUser(User user) {
-		Collection<Comment> comments = new HashSet<Comment>();
-		for (Comment c: comments) {om
-			comments.addAll(c.getCommentsFromUser(user));
+		Collection<Comment> commentsUser = new HashSet<Comment>();
+		for (Comment c: this.comments) {
+			commentsUser.addAll(c.getCommentsFromUser(user));
 		}
-
 		return comments;
 	}
 
@@ -64,7 +63,7 @@ public class Post implements Publication {
 		return id;
 	}
 
-	public User getOwner() {
+	public User getUser() {
 		return user;
 	}
 
@@ -73,12 +72,30 @@ public class Post implements Publication {
 	}
 
 	public Collection<Comment> getComments() {
-		return listComment;
+		return comments;
 	}
 
-	public Collection<User> getLikeUsers() {
+	public Collection<User> getLikeList() {
 		return likeList;
 	}
-}
 
-// Définition de @Id et de @OneToMany pour une classe abstraite ?
+	public void setId (int id) {
+		this.id = id;
+	}
+
+	public void setUser (User user) {
+		this.user = user;
+	}
+
+	public void setDate (Date date) {
+		this.date = date;
+	}
+
+	public void setComments (Collection<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public void setLikeList (Collection<User> likeList) {
+		this.likeList = likeList;
+	}
+}
