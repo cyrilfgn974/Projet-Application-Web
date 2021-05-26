@@ -12,11 +12,8 @@
 		<form novalidate>
 			<h2>Description du profil</h2>
 			<div>
-	    		<label for = "photo">Photo de profil :</label>
-				<input type = "file"
-						id = "photo"
-						name = "photo"
-						accept = "image/png, image/jpeg">
+	    		Photo de profil:<br>
+				<input type="file" id="photoProfil" accept="image/png, image/jpeg" ng-model="user.photo">
 			</div>
 
 			<div>
@@ -65,19 +62,67 @@
 		<button ng-click="doOK('register')">Créer un compte</button>
     </div>
     <div ng-show="showMonMur">
-    	
-    	Mon Mur<br>
-    	Tel :<br>
-    	e-mail :<br>
-    	Status :
+    	<h2>{{loggedUser.username}}   ({{loggedUser.first_name}} {{loggedUser.last_name}})</h2>
+    	Tel: {{loggedUser.phone_number}}<br>
+    	e-mail: {{loggedUser.email}}<br>
+    	Description: {{loggedUser.description}}<br>
+	    <div ng-repeat="p in listPosts">
+	    	<table>
+		    	<tr>
+		    		<td>{{p.title}}</td>
+		    		<td>{{p.date.toString()}}</td>
+		    	</tr>
+		    	<tr>
+		    		<td>{{p.text}}</td>
+		    	</tr>
+		    	<tr>
+		    		<td>{{getNbLikes(p)}}</td>
+		    	</tr>
+    			<button ng-click="doOK('supprimerPost')"
+    			ng-model = "$parent.onePost" value = "{{p.id}}">Delete</button>
+	  		</table>
+	  	</div>
+	  	<button ng-click="doOK('createPost')">Créer un Post</button>
+    </div>
+    <div ng-show="showCreatePost">
+    	<h2>Nouveau Post</h2>
+    	<form novalidate>
+	    	<table>
+	    		<tr>
+	    			<td>
+						Image to upload:<br>
+						<input type = "file" accept = "image/png, image/jpeg" ng-model = "post.photo">
+					</td>
+				</tr>
+		    	<tr>
+		    		<td>Enter title here<input type="text" ng-model="post.title"></td>
+		    	</tr>
+		    	<tr>
+		    		<td><textarea rows="5" cols="33" ng-model = "post.text">Your post</textarea></td>
+		    	</tr>
+		  	</table>
+		  	<button ng-click="doOK('addPost')">Post</button>
+		</form>
     </div>
     <div ng-show="showMesCreations">
     </div>
     <div ng-show="showMenuArtiste">
+    	<h2>Menu Principal</h2>
+   		<button ng-click="doOK('monMur')">Mon Mur</button>
+   		<button ng-click="doOK('mesCreations')">Mes Créations</button>
+   		<button ng-click="doOK('contacts')">Contacts</button>
+   		<button ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
     </div>
     <div ng-show="showMenuMuse">
+       	<h2>Menu Principal</h2>
+   		<button ng-click="doOK('monMur')">Mon Mur</button>
+   		<button ng-click="doOK('contacts')">Contacts</button>
+   		<button ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
     </div>
     <div ng-show="showMenuUser">
+       	<h2>Menu Principal</h2>
+   		<button ng-click="doOK('contacts')">Contacts</button>
+   		<button ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
     </div>
     <div ng-show="showContacts">
     	<h2>Demandes d'ami</h2>
@@ -119,7 +164,7 @@
 	    	<li ng-repeat="m in listMessages">{{m}}</li>
 	  	</ul>
 	  	<form novalidate>
-		  	<textarea rows="10" cols="5" ng-model = "$parent.oneMessage">Type your message here</textarea>
+		  	<textarea rows="5" cols="33" ng-model = "$parent.oneMessage">Type your message here</textarea>
 		  	<button ng-click="doOK('envoyerMessage')">Send</button>
 		</form>
     </div>
@@ -145,6 +190,22 @@
     		<button ng-click="doOK('donate')" ng-disabled="{{$parent.isDonating}}">Start donating</button>
     	</form>
     	<button ng-click="doOK('stopDonation')" ng-disabled="{{$parent.isDonating}}=false">Stop donating</button>
+    	<div ng-repeat="p in listPosts">
+	    	<table>
+		    	<tr>
+		    		<td>{{p.title}}</td>
+		    		<td>{{p.date.toString()}}</td>
+		    	</tr>
+		    	<tr>
+		    		<td>{{p.text}}</td>
+		    	</tr>
+		    	<tr>
+		    		<td>{{getNbLikes(p)}}</td>
+		    		<td><button ng-click="doOK('like')"
+    			ng-model = "$parent.onePost" value = "{{p.id}}">Like</button></td>
+		    	</tr>
+	  		</table>
+	  	</div>
     </div>
     <div ng-show="showMessage">
     {{message}}
