@@ -1,42 +1,44 @@
 package entities;
 
-import java.util.*;
+import java.util.Collection;
 
-public class Work extends PublicationAbstract {
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+@Entity
+public class Work {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int workID;
     private Object content;
-    public Work(int workID, Artist artistOwner, Object workContent) {
-        super(artistOwner);
+
+    @MayToMany(fetch = FetchType.EAGER)
+    private Collection<User> collaborateurs;
+
+    public Work(Object workContent) {
         this.content = workContent;
     }
 
-    public Work(int workID, Artist artistOwner, Object workContent, Date date) {
-        super(artistOwner, date);
-        this.content = workContent;
-    }
-
-    public Work() {
-    	super();
-    }
-
-    public boolean userLiked(User user) {
-        for (User u: likeList) {
-            if (user.equals(u)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Collection<Comment> getCommentsFromUser(User user) {
-        Collection<Comment> comments = new HashSet<Comment>();
-        for (Comment c: listComment) {
-            comments.addAll(c.getCommentsFromUser(user));
-        }
-
-        return comments;
-    }
+    public Work() {}
 
     public Object getContent() {
         return content;
+    }
+
+    public void setContent (Object content) {
+        this.content = content;
+    }
+
+    public Collection<User> getCollaborateurs () {
+        return collaborateurs;
+    }
+
+    public void setCollaborateurs (Collection<User> collaborateurs) {
+        this.collaborateurs = collaborateurs;
     }
 }
