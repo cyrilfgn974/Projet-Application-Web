@@ -3,12 +3,15 @@ function initVars(scope) {
 	scope.logData = new Object();
 	scope.loggedUser = new Object();
 	scope.moneyDonation = new Object();
+	scope.post = new Object();
 	scope.oneFriend = "";
 	scope.oneMessage = "";
 	scope.oneUser = "";
 	scope.message = "";
 	scope.frequenceDonation = "";
+	scope.onePost = "";
 	scope.isDonating = false;
+	scope.nbLikes = 0;
 }
 function initView(scope) {
 	scope.showRegister = false;
@@ -20,9 +23,10 @@ function initView(scope) {
 	scope.showMenuMuse = false;
 	scope.showMenuUser = false;
 	scope.showContacts = false;
-	scope.showParlerAmi = false;
 	scope.showChat = false;
 	scope.showProfile = false;
+	scope.showListUsers = false;
+	scope.showCreatePost = false;
 }
 function click(button, scope, http) {
 	initView(scope);
@@ -68,6 +72,8 @@ function OK(action, scope, http) {
 		});
 		break;
 	case "monMur" :
+		initView(scope);
+		scope.listPosts = scope.loggedUser.getPosts()
 		break;
 	case "mesCreations" :
 		break;
@@ -82,7 +88,6 @@ function OK(action, scope, http) {
 		scope.listPropositionsAmi = scope.loggedUser.getPropositionsAmi();
 		scope.showContacts = true;
 		break;
-	}
 	case "confirmerAmi" :		
 		http.post("accepterami",scope.loggedUser,scope.oneFriend).then(function(response) {
 			if (response.status == 204) scope.message = "friend added successfully";
@@ -132,16 +137,25 @@ function OK(action, scope, http) {
 		break;
 	case "showProfile":
 		initView(scope);
-		http.get("isdonating").then(function(response) {
+		http.get("isdonating",scope.loggedUser,scope.oneUser).then(function(response) {
 			if (response.status == 200) {
 				scope.isDonating = response.data;
-				scope.showProfile = true;
 				//alert(JSON.stringify(scope.isDonating));
 			} else {
 				scope.message = "could not download profile";
 				scope.showMessage = true;
 			}
 		});
+		http.get("getposts",scope.oneUser).then(function(response) {
+			if (response.status == 200) {
+				scope.listPosts = response.data;
+				//alert(JSON.stringify(scope.listPosts));
+			} else {
+				scope.message = "could not download profile";
+				scope.showMessage = true;
+			}
+		});
+		scope.showProfile = true;
 		break;
 	case "donate":
 		initView(scope);
@@ -158,8 +172,58 @@ function OK(action, scope, http) {
 			else scope.message = "could not stop donations to this user";
 			scope.showMessage = true;			
 		});
-		break;		
+		break;
+	case "supprimerPost":
+		initView(scope);
+		http.post("supprimerpost",scope.loggedUser,scope.onePost).then(function(response) {
+			if (response.status == 204) {		
+				scope.showMonMur = true;
+			} else {
+				scope.message = "could not delete post";
+				scope.showMessage = true;
+			}
+		});
+		break;
+	case "createPost":
+		initView(scope);
+		scope.showCreatePost = true;
+		break;
+	case "addPost":
+		initView(scope);
+		http.post("addpost",scope.loggedUser,scope.post).then(function(response) {
+			if (response.status == 204) {
+				scope.showMonMur = true;
+			} else {
+				scope.message = "something went wrong";
+				scope.showMessage = true;			
+			}
+		});
+	case "like":
+		http.post("like",scope.loggedUser,scope.onePost).then(function(response) {
+			if (response.status == 204) {
+				scope.nbLikes++;
+			} else {
+				scope.message = "could not like the post";
+				scope.showMessage = true;			
+			}
+		});
+	}
 }
+
+/**function uploadImage (pathImage) {
+	var img = document.getElementById("photoProfil").files[0];
+	var lecture = new FileReader();
+	lecture.onloadend = function(evenement){
+		var donnees = evenement.target.result;
+		http.post("uploadimg",donnees).then(function(response) {
+			if (response.status != 204) {
+				scope.message = "could not download image";
+				scope.showMessage = true;			
+			}
+		});
+	}
+	lecture.readAsBinaryString(fichier);
+}*/
 
 var app = angular.module('Crealink', []);
 app.controller('myCtrl', function($scope,$http) {
@@ -167,4 +231,6 @@ app.controller('myCtrl', function($scope,$http) {
  	initView($scope);
     $scope.doClick=function(button) {click(button,$scope,$http);}
     $scope.doOK=function(action) {OK(action,$scope,$http);}
+    $scope.getNbLikes=function(post) {post.getNbLikes();}
+    /**$scope.uploadImage=function(pathImage) {uploadImage(pathImage);}*/
 });
