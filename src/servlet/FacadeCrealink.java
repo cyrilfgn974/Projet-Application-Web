@@ -47,6 +47,13 @@ public class FacadeCrealink {
 		em.persist(u);
 	}
 
+	/**@POST
+	@Path("/uploadimg")
+	@Consumes({"application/json"})
+	public void uploadImage(String image) {
+		
+	}*/
+
 	@GET
 	@Path("/signin")
 	@Produces({"application/json"})
@@ -166,5 +173,33 @@ public class FacadeCrealink {
 			messages.add(mess);
 		}
 	}
+
+
+	// Gestion des Posts
+
 	
+	@POST
+	@Path("/supprimerpost")
+	@Consumes({"application/json"})
+	public void supprimerPost(User u, String postId) {
+		Post post = em.find(Post.class, Integer.parseInt(postId));
+		em.remove(post);
+	}
+
+	@POST
+	@Path("/addpost")
+	@Consumes({"application/json"})
+	public void addPost(User u, String title, String text) {
+		Post post = new Post(u, title, text);
+		em.persist(post);
+		post.user = u;
+	}
+
+	@POST
+	@Path("/like")
+	@Consumes({"application/json"})
+	public void like(User u, String postId) {
+		Post post = em.find(Post.class, Integer.parseInt(postId));
+		post.getLikeList().add(u);
+	}
 }
