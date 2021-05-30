@@ -1,0 +1,87 @@
+html {
+	color: white
+}
+body {
+	background-color: indigo;
+}
+
+h2 {
+	color: white;
+	text-align: center;
+}
+
+p {
+	font-family: vedana;
+	font-size: 20px;
+}
+
+IMG.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.center {
+	text-align: center;
+}
+
+.margin {
+	margin: 5%;
+}
+
+.fondbleu {
+	background-color: lightblue;
+	margin: 0 400px 0;
+}
+
+.fill {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid aqua;
+  background-color: indigo;
+  color: white;
+}
+
+.button {
+  background-color: lightblue
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white; 
+  color: black;
+  border: 2px solid lightblue;
+}
+
+.button1:hover {
+  background-color: lightblue;
+  color: white;
+}
+
+.button2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid red;
+}
+
+.button2:hover {
+  background-color: red;
+  color: white;
+}
+
+.button3 {
+  background-color: lightgrey;
+  color: black;
+}
