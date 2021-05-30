@@ -1,65 +1,78 @@
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<head>
+<link rel="stylesheet" type="text/css" href="Crealink.css "/>
+</head>
+
 <body>
 
 <div ng-app="Crealink" ng-controller="myCtrl">
 
-<button ng-click="doClick('register')">S'inscrire</button>
-<button ng-click="doClick('signIn')">Se connecter</button>
+<button class="button button3" ng-click="doClick('signIn')">Accueil</button>
 <br>
 	<div ng-show="showRegister">
 		<form novalidate>
-			<h2>Description du profil</h2>
+
+			<div class="fondbleu">
+				<img class="displayed" src="/home/gpennec/Bureau/Créalink" width="150" height="...">
+				<h2>Description du profil</h2>
+			</div>
+
 			<div>
 	    		Photo de profil:<br>
 				<input type="file" id="photoProfil" accept="image/png, image/jpeg" ng-model="user.photo">
 			</div>
 
 			<div>
-				<label for="first">Prenom : </label>
-				<input type=”text” name="first" id="first" ng-model="user.first" required>
-				<label for="last">Nom : </label>			
-				<input type=”text” name="last" id="last" ng-model="user.last" required>
-				<label for="mail">Mail : </label>
-				<input type=”email” name="mail" id="mail" ng-model="user.mail" required>
-				<label for="phone">Téléphone : </label>
-				<input type=”tel” name="phone" id="phone" ng-model="user.phone">
-				<label for="username">Pseudo : </label>
-				<input type=”text”  name="username" id="username" ng-model="user.username" required>
-				<label for="password">Mot de passe : </label>
-				<input type=”text” name="password" id="password" ng-model="user.password" required>
+				<label for="first">Prenom : </label><br>
+				<input class="fill" type=”text” name="first" id="first" ng-model="user.first" required>
+				<label for="last">Nom : </label><br>		
+				<input class="fill" type=”text” name="last" id="last" ng-model="user.last" required>
+				<label for="mail">Mail : </label><br>
+				<input class="fill" type=”email” name="mail" id="mail" ng-model="user.mail" required>
+				<label for="phone">Téléphone : </label><br>
+				<input class="fill" type=”tel” name="phone" id="phone" ng-model="user.phone">
+				<label for="username">Pseudo : </label><br>
+				<input class="fill" type=”text”  name="username" id="username" ng-model="user.username" required>
+				<label for="password">Mot de passe : </label><br>
+				<input class="fill" type=”text” name="password" id="password" ng-model="user.password" required>
 			</div>
 
 			<div>
-				<label for="artiste">Artiste</label>
+				<label for="artiste">Artiste</label><br>
 				<input type="radio" name="artiste" id="artiste" ng-model="user.profil" value="artiste">
-				<label for="muse">Muse</label>
+				<label for="muse">Muse</label><br>
 				<input type="radio" name="muse" id="muse" ng-model="user.profil" value="muse">
-				<label for="user">Simple User</label>
+				<label for="user">Simple User</label><br>
 				<input type="radio" name="user" id="user" ng-model="user.profil" value="user">
 			</div>
 
-			<button ng-click="doOK('register')">S'inscrire</button>
+			<button class="button button1" ng-click="doOK('register')">S'inscrire</button>
   		</form>
     </div>
     <div ng-show="showSignIn">
-	    <h2>Se connecter</h2>
+    	<div class="fondbleu">
+	    	<img class="displayed" src="/home/gpennec/Bureau/Créalink" width="150" height="...">
+		    <h2>Se connecter</h2>
+		</div>
 	    <form name="form" role="form" novalidate>
-	        <div ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-	            <label for="username">Nom d&#39;utilisateur</label>
-	            <input type="text" name="username" id="username" ng-model="logData.username" required />
+	        <div class="margin" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+	            <label for="username">Nom d&#39;utilisateur</label><br>
+	            <input class="fill" type="text" name="username" id="username" ng-model="logData.username" required />
 	        </div>
-	        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-	            <label for="password">Mot de passe</label>
-	            <input type="password" name="password" id="password" ng-model="logData.password" required />
+	        <div class="form-group margin" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+	            <label for="password">Mot de passe</label><br>
+	            <input class="fill" type="password" name="password" id="password" ng-model="logData.password" required />
 	        </div>
-	        <div class="form-actions">
-	            <button type="submit" ng-disabled="form.$invalid || logData.dataLoading" ng-click="doOk('signIn')">Se connecter</button>
+	        <div class="form-actions center margin">
+	            <button class="button button1" type="submit" ng-disabled="form.$invalid || logData.dataLoading" ng-click="doOk('signIn')">Se connecter</button>
 	        </div>
 	    </form>
-
-		<button ng-click="doOK('register')">Créer un compte</button>
+		<div class="center margin">
+			<button class="button button1" ng-click="doOK('register')">Créer un compte</button>
+		</div>
     </div>
     <div ng-show="showMonMur">
     	<h2>{{loggedUser.username}}   ({{loggedUser.first_name}} {{loggedUser.last_name}})</h2>
@@ -78,11 +91,11 @@
 		    	<tr>
 		    		<td>{{getNbLikes(p)}}</td>
 		    	</tr>
-    			<button ng-click="doOK('supprimerPost')"
+    			<button class="button button2" ng-click="doOK('supprimerPost')"
     			ng-model = "$parent.onePost" value = "{{p.id}}">Delete</button>
 	  		</table>
 	  	</div>
-	  	<button ng-click="doOK('createPost')">Créer un Post</button>
+	  	<button class="button button1" ng-click="doOK('createPost')">Créer un Post</button>
     </div>
     <div ng-show="showCreatePost">
     	<h2>Nouveau Post</h2>
@@ -95,34 +108,34 @@
 					</td>
 				</tr>
 		    	<tr>
-		    		<td>Enter title here<input type="text" ng-model="post.title"></td>
+		    		<td>Enter title here<input class="fill" type="text" ng-model="post.title"></td>
 		    	</tr>
 		    	<tr>
 		    		<td><textarea rows="5" cols="33" ng-model = "post.text">Your post</textarea></td>
 		    	</tr>
 		  	</table>
-		  	<button ng-click="doOK('addPost')">Post</button>
+		  	<button class="button button1" ng-click="doOK('addPost')">Post</button>
 		</form>
     </div>
     <div ng-show="showMesCreations">
     </div>
     <div ng-show="showMenuArtiste">
     	<h2>Menu Principal</h2>
-   		<button ng-click="doOK('monMur')">Mon Mur</button>
-   		<button ng-click="doOK('mesCreations')">Mes Créations</button>
-   		<button ng-click="doOK('contacts')">Contacts</button>
-   		<button ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+   		<button class="button button1" ng-click="doOK('monMur')">Mon Mur</button>
+   		<button class="button button1" ng-click="doOK('mesCreations')">Mes Créations</button>
+   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
+   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
     </div>
     <div ng-show="showMenuMuse">
        	<h2>Menu Principal</h2>
-   		<button ng-click="doOK('monMur')">Mon Mur</button>
-   		<button ng-click="doOK('contacts')">Contacts</button>
-   		<button ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+   		<button class="button button1" ng-click="doOK('monMur')">Mon Mur</button>
+   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
+   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
     </div>
     <div ng-show="showMenuUser">
        	<h2>Menu Principal</h2>
-   		<button ng-click="doOK('contacts')">Contacts</button>
-   		<button ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
+   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
     </div>
     <div ng-show="showContacts">
     	<h2>Demandes d'ami</h2>
@@ -131,7 +144,7 @@
 	    		<td>{{ profile.username }}</td>
 	    		<td>({{ profile.first_name }} {{profile.last_name}})</td>
 	    		<td>
-	    			<button ng-click="doOK('confirmerAmi')"
+	    			<button class="button button1" ng-click="doOK('confirmerAmi')"
 	    			ng-model = "$parent.oneFriend" value = "{{profile.username}}">Confirm</button>
 	    		</td>
 	    	</tr>
@@ -142,7 +155,7 @@
 	    		<td>{{ profile.username }}</td>
 	    		<td>({{ profile.first_name }} {{profile.last_name}})</td>
 	    		<td>
-	    			<button ng-click="doOK('parlerAmi')"
+	    			<button class="button button1" ng-click="doOK('parlerAmi')"
 	    			ng-model = "$parent.oneFriend" value = "{{profile.username}}">Chat</button>
 	    		</td>
 	    	</tr>
@@ -153,7 +166,7 @@
 	    		<td>{{ profile.username }}</td>
 	    		<td>({{ profile.first_name }} {{profile.last_name}})</td>
 	    		<td>
-	    			<button ng-click="doOK('demanderAmi')"
+	    			<button class="button button1" ng-click="doOK('demanderAmi')"
 	    			ng-model = "$parent.oneFriend" value = "{{profile.username}}">Add</button>
 				</td>
 	    	</tr>
@@ -165,7 +178,7 @@
 	  	</ul>
 	  	<form novalidate>
 		  	<textarea rows="5" cols="33" ng-model = "$parent.oneMessage">Type your message here</textarea>
-		  	<button ng-click="doOK('envoyerMessage')">Send</button>
+		  	<button class="button button1" ng-click="doOK('envoyerMessage')">Send</button>
 		</form>
     </div>
     <div ng-show="showListUsers">
@@ -174,7 +187,7 @@
     		<label ng-repeat="u in listUsers">
 				<input type="radio" ng-model="$parent.oneUser" value="{{u.pseudonyme}}">{{ u.pseudonyme }} ({{ u.first_name }} {{u.last_name}})<br>
 			</label>
-	  		<button ng-click="doOK('showProfile')">Consulter</button>
+	  		<button class="button button1" ng-click="doOK('showProfile')">Consulter</button>
     	</form>
     </div>
 	<div ng-show="showProfile">
@@ -187,9 +200,9 @@
     			<option ng-model="moneyDonation.currency" value="euro" selected>Euro</option>
     			<option ng-model="moneyDonation.currency" value="yuan">Yuan</option>
     		</select>
-    		<button ng-click="doOK('donate')" ng-disabled="{{$parent.isDonating}}">Start donating</button>
+    		<button class="button button1" ng-click="doOK('donate')" ng-disabled="{{$parent.isDonating}}">Start donating</button>
     	</form>
-    	<button ng-click="doOK('stopDonation')" ng-disabled="{{$parent.isDonating}}=false">Stop donating</button>
+    	<button class="button button2" ng-click="doOK('stopDonation')" ng-disabled="{{$parent.isDonating}}=false">Stop donating</button>
     	<div ng-repeat="p in listPosts">
 	    	<table>
 		    	<tr>
@@ -201,7 +214,7 @@
 		    	</tr>
 		    	<tr>
 		    		<td>{{getNbLikes(p)}}</td>
-		    		<td><button ng-click="doOK('like')"
+		    		<td><button class="button button1" ng-click="doOK('like')"
     			ng-model = "$parent.onePost" value = "{{p.id}}">Like</button></td>
 		    	</tr>
 	  		</table>
