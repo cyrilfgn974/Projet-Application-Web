@@ -20,36 +20,38 @@
 				<h2>Description du profil</h2>
 			</div>
 
-			<div>
+			<!--<div class="margin">
 	    		Photo de profil:<br>
 				<input type="file" id="photoProfil" accept="image/png, image/jpeg" ng-model="user.photo">
-			</div>
+			</div>-->
 
-			<div>
-				<label for="first">Prenom : </label><br>
-				<input class="fill" type=”text” name="first" id="first" ng-model="user.first" required>
-				<label for="last">Nom : </label><br>		
-				<input class="fill" type=”text” name="last" id="last" ng-model="user.last" required>
-				<label for="mail">Mail : </label><br>
-				<input class="fill" type=”email” name="mail" id="mail" ng-model="user.mail" required>
+			<div class="margin">
+				<label for="first">* Prenom : </label><br>
+				<input class="fill" type=”text” name="first" id="first" ng-model="user.firstName" required><br>
+				<label for="last">* Nom : </label><br>
+				<input class="fill" type=”text” name="last" id="last" ng-model="user.lastName" required><br>
+				<label for="mail">* Mail : </label><br>
+				<input class="fill" type=”email” name="mail" id="mail" ng-model="user.email" required><br>
 				<label for="phone">Téléphone : </label><br>
-				<input class="fill" type=”tel” name="phone" id="phone" ng-model="user.phone">
-				<label for="username">Pseudo : </label><br>
-				<input class="fill" type=”text”  name="username" id="username" ng-model="user.username" required>
-				<label for="password">Mot de passe : </label><br>
-				<input class="fill" type=”text” name="password" id="password" ng-model="user.password" required>
+				<input class="fill" type=”tel” name="phone" id="phone" ng-model="user.phoneNumber"><br>
+				<label for="username">* Pseudo : </label><br>
+				<input class="fill" type=”text”  name="username" id="username" ng-model="user.username" required><br>
+				<label for="password">* Mot de passe : </label><br>
+				<input class="fill" type=”password” name="password" id="password" ng-model="user.password" required><br>
 			</div>
 
-			<div>
-				<label for="artiste">Artiste</label><br>
-				<input type="radio" name="artiste" id="artiste" ng-model="user.profil" value="artiste">
-				<label for="muse">Muse</label><br>
-				<input type="radio" name="muse" id="muse" ng-model="user.profil" value="muse">
-				<label for="user">Simple User</label><br>
-				<input type="radio" name="user" id="user" ng-model="user.profil" value="user">
+			<div class="margin">
+				<label for="artiste">Artiste</label>
+				<input type="radio" name="artiste" id="artiste" ng-model="$parent.oneProfil" value="artiste"><br>
+				<label for="muse">Muse</label>
+				<input type="radio" name="muse" id="muse" ng-model="$parent.oneProfil" value="muse"><br>
+				<label for="user">Simple User</label>
+				<input type="radio" name="user" id="user" ng-model="$parent.oneProfil" value="user"><br>
 			</div>
 
-			<button class="button button1" ng-click="doOK('register')">S'inscrire</button>
+			<div class="margin center">
+				<button class="button button1" ng-click="doOK('register')">S'inscrire</button>
+			</div>
   		</form>
     </div>
     <div ng-show="showSignIn">
@@ -67,11 +69,11 @@
 	            <input class="fill" type="password" name="password" id="password" ng-model="logData.password" required />
 	        </div>
 	        <div class="form-actions center margin">
-	            <button class="button button1" type="submit" ng-disabled="form.$invalid || logData.dataLoading" ng-click="doOk('signIn')">Se connecter</button>
+	            <button class="button button1" type="submit" ng-disabled="form.$invalid || logData.dataLoading" ng-click="doOK('signIn')">Se connecter</button>
 	        </div>
 	    </form>
 		<div class="center margin">
-			<button class="button button1" ng-click="doOK('register')">Créer un compte</button>
+			<button class="button button1" ng-click="doClick('register')">Créer un compte</button>
 		</div>
     </div>
     <div ng-show="showMonMur">
@@ -121,21 +123,27 @@
     </div>
     <div ng-show="showMenuArtiste">
     	<h2>Menu Principal</h2>
-   		<button class="button button1" ng-click="doOK('monMur')">Mon Mur</button>
-   		<button class="button button1" ng-click="doOK('mesCreations')">Mes Créations</button>
-   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
-   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+    	<div class="center margin">
+	   		<button class="button button1" ng-click="doOK('monMur')">Mon Mur</button>
+	   		<button class="button button1" ng-click="doOK('mesCreations')">Mes Créations</button>
+	   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
+	   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+   		</div>
     </div>
     <div ng-show="showMenuMuse">
        	<h2>Menu Principal</h2>
-   		<button class="button button1" ng-click="doOK('monMur')">Mon Mur</button>
-   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
-   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+       	<div class="center margin">
+	   		<button class="button button1" ng-click="doOK('monMur')">Mon Mur</button>
+	   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
+	   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+   		</div>
     </div>
     <div ng-show="showMenuUser">
        	<h2>Menu Principal</h2>
-   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
-   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+       	<div class="center margin">
+	   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
+	   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+   		</div>
     </div>
     <div ng-show="showContacts">
     	<h2>Demandes d'ami</h2>
@@ -200,9 +208,9 @@
     			<option ng-model="moneyDonation.currency" value="euro" selected>Euro</option>
     			<option ng-model="moneyDonation.currency" value="yuan">Yuan</option>
     		</select>
-    		<button class="button button1" ng-click="doOK('donate')" ng-disabled="{{$parent.isDonating}}">Start donating</button>
+    		<button class="button button1" ng-click="doOK('donate')" ng-disabled="$parent.isDonating">Start donating</button>
     	</form>
-    	<button class="button button2" ng-click="doOK('stopDonation')" ng-disabled="{{$parent.isDonating}}=false">Stop donating</button>
+    	<button class="button button2" ng-click="doOK('stopDonation')" ng-disabled="$parent.isDonating=false">Stop donating</button>
     	<div ng-repeat="p in listPosts">
 	    	<table>
 		    	<tr>
