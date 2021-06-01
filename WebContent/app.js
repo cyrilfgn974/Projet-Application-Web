@@ -10,6 +10,7 @@ function initVars(scope) {
 	scope.message = "";
 	scope.frequenceDonation = "";
 	scope.onePost = "";
+	scope.oneProfil="";
 	scope.isDonating = false;
 	scope.nbLikes = 0;
 }
@@ -44,15 +45,14 @@ function OK(action, scope, http) {
 	switch (action) {
 	case "register" :
 		initView(scope);
-		http.post("ajout" + scope.user.profil,scope.user).then(function(response) {
+		http.post("rest/ajoutartiste",scope.user).then(function(response) {
 			if (response.status == 204) scope.message = "account created successfully";
 			else scope.message = "registration failed";
 			scope.showMessage = true;
 		});
 		break;
 	case "signIn" :
-		initView(scope);
-		http.get("signin",scope.logData).then(function(response) {
+		http.get("rest/signin",scope.logData.username, scope.logData.password).then(function(response) {
 			if (response.status == 200) {
 				scope.message = "user connected successfully";
 				scope.showMessage = true;
@@ -89,7 +89,7 @@ function OK(action, scope, http) {
 		scope.showContacts = true;
 		break;
 	case "confirmerAmi" :		
-		http.post("accepterami",scope.loggedUser,scope.oneFriend).then(function(response) {
+		http.post("rest/accepterami",scope.loggedUser,scope.oneFriend).then(function(response) {
 			if (response.status == 204) scope.message = "friend added successfully";
 			else scope.message = "could not add friend";
 			scope.showMessage = true;			
@@ -97,7 +97,7 @@ function OK(action, scope, http) {
 		break;
 	case "parlerAmi" :
 		initView(scope);
-		http.get("getmessages").then(function(response) {
+		http.get("rest/getmessages").then(function(response) {
 			if (response.status == 200) {
 				scope.listMessages = response.data;
 				scope.showChat = true;
@@ -109,14 +109,14 @@ function OK(action, scope, http) {
 		});
 		break;
 	case "demanderAmi" :
-		http.post("demanderami",scope.loggedUser,scope.oneFriend).then(function(response) {
+		http.post("rest/demanderami",scope.loggedUser,scope.oneFriend).then(function(response) {
 			if (response.status == 204) scope.message = "request successfully sent";
 			else scope.message = "could not send request";
 			scope.showMessage = true;			
 		});
 		break;
 	case "envoyerMessage":
-		http.post("sendmessage",scope.loggedUser,scope.oneFriend,scope.oneMessage).then(function(response) {
+		http.post("rest/sendmessage",scope.loggedUser,scope.oneFriend,scope.oneMessage).then(function(response) {
 			if (response.status == 204) scope.message = "message successfully sent";
 			else scope.message = "could not send the message";
 			scope.showMessage = true;			
@@ -124,7 +124,7 @@ function OK(action, scope, http) {
 		break;
 	case "showListUsers":
 		initView(scope);
-		http.get("listusers").then(function(response) {
+		http.get("rest/listusers").then(function(response) {
 			if (response.status == 200) {
 				scope.listUsers = response.data;
 				scope.showListUsers = true;
@@ -137,7 +137,7 @@ function OK(action, scope, http) {
 		break;
 	case "showProfile":
 		initView(scope);
-		http.get("isdonating",scope.loggedUser,scope.oneUser).then(function(response) {
+		http.get("rest/isdonating",scope.loggedUser,scope.oneUser).then(function(response) {
 			if (response.status == 200) {
 				scope.isDonating = response.data;
 				//alert(JSON.stringify(scope.isDonating));
@@ -146,7 +146,7 @@ function OK(action, scope, http) {
 				scope.showMessage = true;
 			}
 		});
-		http.get("getposts",scope.oneUser).then(function(response) {
+		http.get("rest/getposts",scope.oneUser).then(function(response) {
 			if (response.status == 200) {
 				scope.listPosts = response.data;
 				//alert(JSON.stringify(scope.listPosts));
@@ -159,7 +159,7 @@ function OK(action, scope, http) {
 		break;
 	case "donate":
 		initView(scope);
-		http.post("fairedonation",scope.loggedUser,scope.user,scope.moneyDonation,scope.frequenceDonation).then(function(response) {
+		http.post("rest/fairedonation",scope.loggedUser,scope.user,scope.moneyDonation,scope.frequenceDonation).then(function(response) {
 			if (response.status == 204) scope.message = "payment successfully opered";
 			else scope.message = "could not process to donation payment";
 			scope.showMessage = true;			
@@ -167,7 +167,7 @@ function OK(action, scope, http) {
 		break;
 	case "stopDonation":
 		initView(scope);
-		http.post("arreterdonation",scope.loggedUser,scope.user).then(function(response) {
+		http.post("rest/arreterdonation",scope.loggedUser,scope.user).then(function(response) {
 			if (response.status == 204) scope.message = "donations successfully stopped";
 			else scope.message = "could not stop donations to this user";
 			scope.showMessage = true;			
@@ -175,7 +175,7 @@ function OK(action, scope, http) {
 		break;
 	case "supprimerPost":
 		initView(scope);
-		http.post("supprimerpost",scope.loggedUser,scope.onePost).then(function(response) {
+		http.post("rest/supprimerpost",scope.loggedUser,scope.onePost).then(function(response) {
 			if (response.status == 204) {		
 				scope.showMonMur = true;
 			} else {
@@ -190,7 +190,7 @@ function OK(action, scope, http) {
 		break;
 	case "addPost":
 		initView(scope);
-		http.post("addpost",scope.loggedUser,scope.post).then(function(response) {
+		http.post("rest/addpost",scope.loggedUser,scope.post).then(function(response) {
 			if (response.status == 204) {
 				scope.showMonMur = true;
 			} else {
@@ -199,7 +199,7 @@ function OK(action, scope, http) {
 			}
 		});
 	case "like":
-		http.post("like",scope.loggedUser,scope.onePost).then(function(response) {
+		http.post("rest/like",scope.loggedUser,scope.onePost).then(function(response) {
 			if (response.status == 204) {
 				scope.nbLikes++;
 			} else {
@@ -215,7 +215,7 @@ function OK(action, scope, http) {
 	var lecture = new FileReader();
 	lecture.onloadend = function(evenement){
 		var donnees = evenement.target.result;
-		http.post("uploadimg",donnees).then(function(response) {
+		http.post("rest/uploadimg",donnees).then(function(response) {
 			if (response.status != 204) {
 				scope.message = "could not download image";
 				scope.showMessage = true;			
