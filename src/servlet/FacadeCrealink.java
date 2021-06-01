@@ -131,15 +131,15 @@ public class FacadeCrealink {
 	}
 
 	@GET
-    	@Path("/isdonating")
-    	@Consumes({"application/json"})
-    	public boolean isDonating(User u, String pseudoDon) {
-        	User userDon = em.find(User.class, pseudoDon);
-        	if (userDon != null) {
-        		return u.getDonations().contains(userDon);
-        	}
-        	return false;
+	@Path("/isdonating")
+	@Consumes({"application/json"})
+	public boolean isDonating(User u, String pseudoDon) {
+    	User userDon = em.find(User.class, pseudoDon);
+    	if (userDon != null) {
+        	return u.getDonation(userDon) != null;
     	}
+    	return false;
+	}
 
 
 	// Gestion du Chat
