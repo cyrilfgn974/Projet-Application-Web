@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -59,7 +58,7 @@ public class FacadeCrealink {
 	@Produces({"application/json"})
 	public User signIn(String pseudo, String password) {
 		User loggedUser = em.find(User.class, pseudo);
-		if (loggedUser.getPassword() == password) return loggedUser;
+		if (loggedUser.getPassword() == pseudo) return loggedUser;
 		return null;
 	}
 
@@ -106,7 +105,7 @@ public class FacadeCrealink {
 		try {
 			User userDon = em.find(User.class, pseudoDon);
 			Donation.Frequence f = Enum.valueOf(Donation.Frequence.class, freq);
-			if (userDon != null && u.getDonation((Artist) userDon) == null) {
+			if (userDon != null && u.getDonation(userDon) == null) {
 				em.persist(value);
 				Donation d = new Donation(u, userDon, value, f);
 				em.persist(d);
@@ -125,7 +124,7 @@ public class FacadeCrealink {
 	public void arreterDonation(User u, String pseudoDon) {
 		User userDon = em.find(User.class, pseudoDon);
 		if (userDon != null) {
-			Donation donation = u.getDonation((Artist) userDon);
+			Donation donation = u.getDonation(userDon);
 			if (donation != null) em.remove(donation);
 		}
 	}
@@ -149,7 +148,6 @@ public class FacadeCrealink {
 	@Path("/getmessages")
 	@Produces({"application/json"})
 	public List<Message> getMessages(User u, String pseudoFriend) {
-		User friend = em.find(User.class, pseudoFriend);
 		TypedQuery<Chat> query = (TypedQuery<Chat>) em.createQuery("select chat from Chat chat"
 				+ "where chat.user1.username = :pseudoUser and chat.user2.username = :pseudoFriend"
 				+ "or chat.user1.username = :pseudoFriend and chat.user2.username = :pseudoUser");
@@ -192,7 +190,7 @@ public class FacadeCrealink {
 	public void addPost(User u, String title, String text) {
 		Post post = new Post(u, title, text);
 		em.persist(post);
-		post.user = u;
+		post.setUser(u);
 	}
 
 	@POST
