@@ -4,17 +4,23 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
-import javax.persistence.*;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 @Entity
-public class Post implements Publication {
+public class Post {
 
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	@ManyToOne(fetch = FetchType.EAGER)
-	public User user;
+	private User user;
 	private Date date;
 	private String title;
 	private String text;
@@ -49,32 +55,12 @@ public class Post implements Publication {
 		return false;
 	}
 
-	@Override
-	public boolean userLiked(User user) {
-		return false;
-	}
-
 	public Collection<Comment> getCommentsFromUser(User user) {
 		Collection<Comment> commentsUser = new HashSet<Comment>();
 		for (Comment c: this.comments) {
 			commentsUser.addAll(c.getCommentsFromUser(user));
 		}
 		return comments;
-	}
-
-	@Override
-	public int getID() {
-		return 0;
-	}
-
-	@Override
-	public User getOwner() {
-		return null;
-	}
-
-	@Override
-	public Date getPublicationDate() {
-		return null;
 	}
 
 	public int getNbLikes () {
@@ -105,26 +91,6 @@ public class Post implements Publication {
 		return comments;
 	}
 
-	@Override
-	public Collection<User> getLikeUsers() {
-		return null;
-	}
-
-	@Override
-	public void setID(int ID) {
-
-	}
-
-	@Override
-	public void setOwner(User owner) {
-
-	}
-
-	@Override
-	public void setPublicationDate(Date date) {
-
-	}
-
 	public Collection<User> getLikeList() {
 		return likeList;
 	}
@@ -143,11 +109,6 @@ public class Post implements Publication {
 
 	public void setComments (Collection<Comment> comments) {
 		this.comments = comments;
-	}
-
-	@Override
-	public void setLikeUsers(Collection<User> likeUsers) {
-
 	}
 
 	public void setLikeList (Collection<User> likeList) {
