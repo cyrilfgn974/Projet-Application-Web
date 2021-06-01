@@ -9,22 +9,13 @@ import java.util.Objects;
 @DiscriminatorColumn(name = "TYPE_USER")
 @DiscriminatorValue("USER")
 public class User {
+	@Id
 	private String username;
 	private String password;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String phoneNumber;
-    @Id
-    private Long id;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
