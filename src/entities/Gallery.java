@@ -2,12 +2,7 @@ package entities;
 
 import java.util.Collection;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Gallery {
@@ -15,10 +10,11 @@ public class Gallery {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO) 
     private int galleryId;
+
+    @OneToOne(fetch = FetchType.EAGER)
     private Artist artistOwner;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Collection<Work> listWorks;
+
 
     public Gallery(Artist artistOwner) {
         this.artistOwner = artistOwner;
@@ -34,9 +30,6 @@ public class Gallery {
         return artistOwner;
     }
 
-    public Collection<Work> getListWorks() {
-        return listWorks;
-    }
 }
 
 //OneToany ou ManyToMany ?

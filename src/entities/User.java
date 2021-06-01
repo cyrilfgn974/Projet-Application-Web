@@ -16,15 +16,34 @@ public class User {
 	private String last_name;
 	private String email;
 	private String phone_number;
+    @Id
+    private Long id;
 
-	public enum Status {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public enum Status {
 		ONLINE, OFFLINE, DONT_DISTURB
 	}
 	private Status status;
 	private String description;
 
-	@ManyToMany(mappedBy = "friends", fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Collection<User> friends;
+
 
 	@ManyToMany(mappedBy = "demandesAmisRecues", fetch = FetchType.EAGER)
 	private Collection<User> demandesAmisEnvoyees;
@@ -35,10 +54,9 @@ public class User {
 	@OneToMany(mappedBy = "from", fetch = FetchType.EAGER)
 	private Collection<Donation> donations;
 
-	@ManyToMany(mappedBy = "collaborateurs", fetch = FetchType.EAGER)
-	private Collection<Work> works;
 
-	@ManyToOne(mappedBy = "user", fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private Collection<Post> posts;
 
 
@@ -160,13 +178,7 @@ public class User {
         this.donations = donations;
     }
 
-	public Collection<Work> getWorks() {
-		return works;
-	}
 
-	public void setWorks(Collection<Work> works) {
-		this.works = works;
-	}
 
 	public Collection<Post> getPosts () {
 		return posts;

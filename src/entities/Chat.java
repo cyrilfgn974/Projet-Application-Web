@@ -2,12 +2,7 @@ package entities;
 
 import java.util.List;
 
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Chat {
@@ -18,7 +13,9 @@ public class Chat {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
+    @OneToOne
     private User user1;
+    @OneToOne
     private User user2;
 
     @OneToMany(fetch = FetchType.EAGER)

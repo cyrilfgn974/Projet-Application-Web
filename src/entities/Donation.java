@@ -10,6 +10,7 @@ public class Donation {
     private int donationID;
     @ManyToOne
     private User from;
+    @ManyToOne
     private User to;
     private Frequence frequence;
     @ManyToOne

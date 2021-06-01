@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="war" build-on-make="true" name="appli">
-    <output-path>$PROJECT_DIR$/out/artifacts/appli</output-path>
-    <root id="archive" name="appli.war">
+  <artifact type="war" build-on-make="true" name="appliOK">
+    <output-path>$PROJECT_DIR$/../../../../../../../../EAP-7.0.0/standalone/deployments</output-path>
+    <root id="archive" name="appliOK.war">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>

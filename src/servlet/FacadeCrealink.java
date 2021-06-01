@@ -59,7 +59,7 @@ public class FacadeCrealink {
 	@Produces({"application/json"})
 	public User signIn(String pseudo, String password) {
 		User loggedUser = em.find(User.class, pseudo);
-		if (loggedUser.getPassword() == pseudo) return loggedUser;
+		if (loggedUser.getPassword() == password) return loggedUser;
 		return null;
 	}
 
@@ -106,7 +106,7 @@ public class FacadeCrealink {
 		try {
 			User userDon = em.find(User.class, pseudoDon);
 			Donation.Frequence f = Enum.valueOf(Donation.Frequence.class, freq);
-			if (userDon != null && u.getDonation(userDon) == null) {
+			if (userDon != null && u.getDonation((Artist) userDon) == null) {
 				em.persist(value);
 				Donation d = new Donation(u, userDon, value, f);
 				em.persist(d);
@@ -125,7 +125,7 @@ public class FacadeCrealink {
 	public void arreterDonation(User u, String pseudoDon) {
 		User userDon = em.find(User.class, pseudoDon);
 		if (userDon != null) {
-			Donation donation = u.getDonation(userDon);
+			Donation donation = u.getDonation((Artist) userDon);
 			if (donation != null) em.remove(donation);
 		}
 	}
