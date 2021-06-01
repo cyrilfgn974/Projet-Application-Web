@@ -17,7 +17,7 @@ public class Work {
     private int workID;
     private Object content;
 
-    @MayToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Collection<User> collaborateurs;
 
     public Work(Object workContent) {
