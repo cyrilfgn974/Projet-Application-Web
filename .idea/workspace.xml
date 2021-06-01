@@ -6,14 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9fc02708-1a16-427a-913b-7e54c5ffde1a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/appliOK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/appli.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projet-Application-Web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Projet-Application-Web.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/Post.java" afterDir="false" />
-    </list>
+    <list default="true" id="9fc02708-1a16-427a-913b-7e54c5ffde1a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -127,6 +120,7 @@
       <workItem from="1622478515287" duration="134000" />
       <workItem from="1622479487447" duration="129000" />
       <workItem from="1622479674309" duration="79000" />
+      <workItem from="1622568868754" duration="141000" />
     </task>
     <servers />
   </component>
