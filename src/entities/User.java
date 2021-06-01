@@ -12,10 +12,10 @@ import java.util.Objects;
 public class User {
 	private String username;
 	private String password;
-	private String first_name;
-	private String last_name;
+	private String firstName;
+	private String lastName;
 	private String email;
-	private String phone_number;
+	private String phoneNumber;
     @Id
     private Long id;
 
@@ -27,12 +27,12 @@ public class User {
         return id;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPHoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public enum Status {
@@ -63,10 +63,10 @@ public class User {
 	public User(String user, String pass, String first, String last, String mail, String phone) {
 		this.username = user;
 		this.password = pass;
-		this.first_name = first;
-		this.last_name = last;
+		this.firstName = first;
+		this.lastName = last;
 		this.email = mail;
-		this.phone_number = phone;
+		this.phoneNumber = phone;
 		// L'utilisateur n'est pas connecté quand il crée son compte
 		this.status = Status.OFFLINE;
 		// L'utilisateur pourra modifier à tout moment sa description
@@ -97,23 +97,23 @@ public class User {
     }
 
     @Basic
-    @Column(name = "first_name", nullable = false, length = 200)
+    @Column(name = "firstName", nullable = false, length = 200)
     public String getFirstName() {
-        return first_name;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        this.first_name = firstName;
+        this.firstName = firstName;
     }
 
     @Basic
-    @Column(name = "last_name", nullable = false, length = 200)
+    @Column(name = "lastName", nullable = false, length = 200)
     public String getLastName() {
-        return last_name;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        this.last_name = lastName;
+        this.lastName = lastName;
     }
 	
 	@Basic
@@ -185,7 +185,7 @@ public class User {
 	}
 
 	public void setPosts (Collection<Post> posts) {
-		this.posts =posts;
+		this.posts = posts;
 	}
 
 
@@ -197,13 +197,13 @@ public class User {
         return  Objects.equals(username, user.username); //&&
 				//pseudos choisis de manière unique !?
                 //Objects.equals(password, user.password) &&
-                //Objects.equals(first_name, user.first_name) &&
-                //Objects.equals(last_name, user.last_name);
+                //Objects.equals(firstName, user.firstName) &&
+                //Objects.equals(lastName, user.lastName);
     }
 
-	public Donation getDonation(Artist a) {
+	public Donation getDonation(User u) {
 		for (Donation d : this.donations) {
-			if (d.getTo().equals(a)) {
+			if (d.getTo().equals(u)) {
 				return d;
 			}
 		}
