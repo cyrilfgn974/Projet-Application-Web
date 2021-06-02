@@ -40,17 +40,14 @@
 				<input class="fill" type=”password” name="password" id="password" ng-model="user.password" required><br>
 			</div>
 
-			<div class="margin">
-				<label for="artiste">Artiste</label>
-				<input type="radio" name="artiste" id="artiste" ng-model="$parent.oneProfil" value="artiste"><br>
-				<label for="muse">Muse</label>
-				<input type="radio" name="muse" id="muse" ng-model="$parent.oneProfil" value="muse"><br>
-				<label for="user">Simple User</label>
-				<input type="radio" name="user" id="user" ng-model="$parent.oneProfil" value="user"><br>
-			</div>
-
 			<div class="margin center">
-				<button class="button button1" ng-click="doOK('register')">S'inscrire</button>
+				<button class="button button1" ng-click="doOK('registerArtiste')">S'inscrire (Artiste)</button>
+			</div>
+			<div class="margin center">
+				<button class="button button1" ng-click="doOK('registerMuse')">S'inscrire (Muse)</button>
+			</div>
+			<div class="margin center">
+				<button class="button button1" ng-click="doOK('registerUser')">S'inscrire (Utilisateur Simple)</button>
 			</div>
   		</form>
     </div>
@@ -69,7 +66,13 @@
 	            <input class="fill" type="password" name="password" id="password" ng-model="logData.password" required />
 	        </div>
 	        <div class="form-actions center margin">
-	            <button class="button button1" type="submit" ng-disabled="form.$invalid || logData.dataLoading" ng-click="doOK('signIn')">Se connecter</button>
+	            <button class="button button1" type="submit" ng-disabled="form.$invalid || logData.dataLoading" ng-click="doOK('signInArtiste')">Se connecter (Artiste)</button>
+	        </div>
+	        <div class="form-actions center margin">
+	            <button class="button button1" type="submit" ng-disabled="form.$invalid || logData.dataLoading" ng-click="doOK('signInMuse')">Se connecter (Muse)</button>
+	        </div>
+	        <div class="form-actions center margin">
+	            <button class="button button1" type="submit" ng-disabled="form.$invalid || logData.dataLoading" ng-click="doOK('signInUser')">Se connecter (SimpleUser)</button>
 	        </div>
 	    </form>
 		<div class="center margin">
@@ -77,24 +80,24 @@
 		</div>
     </div>
     <div ng-show="showMonMur">
-    	<h2>{{loggedUser.username}}   ({{loggedUser.first_name}} {{loggedUser.last_name}})</h2>
-    	Tel: {{loggedUser.phone_number}}<br>
+    	<h2>{{loggedUser.username}}   ({{loggedUser.firstName}} {{loggedUser.lastName}})</h2>
+    	Tel: {{loggedUser.phoneNumber}}<br>
     	e-mail: {{loggedUser.email}}<br>
     	Description: {{loggedUser.description}}<br>
 	    <div ng-repeat="p in listPosts">
 	    	<table>
 		    	<tr>
 		    		<td>{{p.title}}</td>
-		    		<td>{{p.date.toString()}}</td>
+		    		<td>{{p.date}}</td>
 		    	</tr>
 		    	<tr>
 		    		<td>{{p.text}}</td>
 		    	</tr>
 		    	<tr>
-		    		<td>{{getNbLikes(p)}}</td>
+		    		<td>{{p.listLike}}</td>
 		    	</tr>
     			<button class="button button2" ng-click="doOK('supprimerPost')"
-    			ng-model = "$parent.onePost" value = "{{p.id}}">Delete</button>
+    			ng-model = "myPost.id" value = "{{p.id}}">Delete</button>
 	  		</table>
 	  	</div>
 	  	<button class="button button1" ng-click="doOK('createPost')">Créer un Post</button>
@@ -102,21 +105,25 @@
     <div ng-show="showCreatePost">
     	<h2>Nouveau Post</h2>
     	<form novalidate>
-	    	<table>
-	    		<tr>
-	    			<td>
-						Image to upload:<br>
-						<input type = "file" accept = "image/png, image/jpeg" ng-model = "post.photo">
-					</td>
-				</tr>
-		    	<tr>
-		    		<td>Enter title here<input class="fill" type="text" ng-model="post.title"></td>
-		    	</tr>
-		    	<tr>
-		    		<td><textarea rows="5" cols="33" ng-model = "post.text">Your post</textarea></td>
-		    	</tr>
-		  	</table>
-		  	<button class="button button1" ng-click="doOK('addPost')">Post</button>
+    		<div class="center margin">
+		    	<table>
+		    		<!--<tr>
+		    			<td>
+							Image to upload:<br>
+							<input type = "file" accept = "image/png, image/jpeg" ng-model = "post.photo">
+						</td>
+					</tr>-->
+			    	<tr>
+			    		<td>Title<input class="fill" type="text" ng-model="post.title"></td>
+			    	</tr>
+			    	<tr>
+			    		<td><textarea rows="20" cols="100" ng-model = "post.text">Your post</textarea></td>
+			    	</tr>
+			  	</table>
+			</div>
+			<div class="center margin">
+				<button class="button button1" ng-click="doOK('addPost')">Post</button>
+			</div>
 		</form>
     </div>
     <div ng-show="showMesCreations">
@@ -127,7 +134,7 @@
 	   		<button class="button button1" ng-click="doOK('monMur')">Mon Mur</button>
 	   		<button class="button button1" ng-click="doOK('mesCreations')">Mes Créations</button>
 	   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
-	   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+	   		<button class="button button1" ng-click="doOK('showListUsers')">Rechercher un Artiste / une Muse</button>
    		</div>
     </div>
     <div ng-show="showMenuMuse">
@@ -135,14 +142,14 @@
        	<div class="center margin">
 	   		<button class="button button1" ng-click="doOK('monMur')">Mon Mur</button>
 	   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
-	   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+	   		<button class="button button1" ng-click="doOK('showListUsers')">Rechercher un Artiste / une Muse</button>
    		</div>
     </div>
     <div ng-show="showMenuUser">
        	<h2>Menu Principal</h2>
        	<div class="center margin">
 	   		<button class="button button1" ng-click="doOK('contacts')">Contacts</button>
-	   		<button class="button button1" ng-click="doOK('listUsers')">Rechercher un Artiste / une Muse</button>
+	   		<button class="button button1" ng-click="doOK('showListUsers')">Rechercher un Artiste / une Muse</button>
    		</div>
     </div>
     <div ng-show="showContacts">
@@ -178,6 +185,14 @@
 	    			ng-model = "$parent.oneFriend" value = "{{profile.username}}">Add</button>
 				</td>
 	    	</tr>
+	    	<tr ng-repeat="profile in listUsers">
+	    		<td>{{ profile.username }}</td>
+	    		<td>({{ profile.first_name }} {{profile.last_name}})</td>
+	    		<td>
+	    			<button class="button button1" ng-click="doOK('demanderAmi')"
+	    			ng-model = "$parent.oneFriend" value = "{{profile.username}}">Add</button>
+				</td>
+	    	</tr>
 	  	</table>
     </div>
     <div ng-show="showChat">
@@ -193,7 +208,7 @@
     	<h2>Consulter un profil</h2>
     	<form novalidate>
     		<label ng-repeat="u in listUsers">
-				<input type="radio" ng-model="$parent.oneUser" value="{{u.pseudonyme}}">{{ u.pseudonyme }} ({{ u.first_name }} {{u.last_name}})<br>
+				<input type="radio" ng-model="$parent.oneUser" value="{{u.username}}">{{ u.username }} ({{ u.firstName }} {{u.lastName}})<br>
 			</label>
 	  		<button class="button button1" ng-click="doOK('showProfile')">Consulter</button>
     	</form>
@@ -203,27 +218,27 @@
     		<input type="radio" ng-model="$parent.frequenceDonation" value="MONTHLY" selected>Monthly<br>
     		<input type="radio" ng-model="$parent.frequenceDonation" value="ANNUALLY">Annually<br>
     		<input type="number" ng-model="moneyDonation.value"><br>
-    		<select ng-model="">
+    		<!--<select ng-model="">
     			<option ng-model="moneyDonation.currency" value="dollar">Dollar US</option>
     			<option ng-model="moneyDonation.currency" value="euro" selected>Euro</option>
     			<option ng-model="moneyDonation.currency" value="yuan">Yuan</option>
-    		</select>
+    		</select>-->
     		<button class="button button1" ng-click="doOK('donate')" ng-disabled="$parent.isDonating">Start donating</button>
     	</form>
     	<button class="button button2" ng-click="doOK('stopDonation')" ng-disabled="$parent.isDonating=false">Stop donating</button>
     	<div ng-repeat="p in listPosts">
 	    	<table>
 		    	<tr>
-		    		<td>{{p.title}}</td>
-		    		<td>{{p.date.toString()}}</td>
+		    		<td><h2>{{p.title}}</h2></td>
+		    		<td>{{p.date}}</td>
 		    	</tr>
 		    	<tr>
 		    		<td>{{p.text}}</td>
 		    	</tr>
 		    	<tr>
-		    		<td>{{getNbLikes(p)}}</td>
+		    		<td>{{p.likeList}}</td>
 		    		<td><button class="button button1" ng-click="doOK('like')"
-    			ng-model = "$parent.onePost" value = "{{p.id}}">Like</button></td>
+    			ng-model = "myPost.id" value = "{{p.id}}">Like</button></td>
 		    	</tr>
 	  		</table>
 	  	</div>
